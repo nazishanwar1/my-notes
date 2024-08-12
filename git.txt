@@ -1,0 +1,47 @@
+
+
+====== Git ======
+
+> yum -y install git
+> ssh-keygen                                            (if it need)
+> cd .ssh
+> cat id_rsa.pub
+ (copy these 3 lines and paste on ssh key and add ssh key title=vmname and type password at GitHub account)
+> cd
+> mkdir git-project
+> cd git-project
+> git config --global user.email "email adress"
+> git config --global user.name "user name"
+> git clone git@github.com:nazishanwar1/second-repo.git (clone=copy target repository)
+ (go to github > username=nazishanwar1 : all repositories will be there)
+> git init .
+> vim first-git                                         (git file name, to create file and edit)
+ (write something then save and quit)
+> git add first-git				        (to add file in git)
+> git add . 	                                        (to add file in git)
+> git commit first-git -m "git hub"                     (to commit/connect file with git hub, m=message)
+ (go to google account create repository, repository name=first repo, create)
+> git status                                            (to check git status)
+> git branch                                            (to check git branches)
+> git branch name-branch                                (to create a new branch where name could be dev,test,qa)
+> git checkout branch-name                              (switch to another branch)
+> cd second-repo                                        (go in any repository)
+> vim testfile.txt                                      (make a file)
+> git commit -m "second"                                (add and commit)
+> git push                                              (transfer commits local repository=terminal to a remote repo.=github)
+> git checkout -b branch-name                           (create and switch to new branch)
+> git merge branch-name                                 (to merge branches)
+ (To merge branches locally, use git checkout to switch to the branch you want to merge into. This branch is typically
+ the main branch. Next, use git merge and specify the name of the other branch to bring into this branch then push into github)
+> git pull                                              (pull changes github to terminal)
+ (go to github click on + sign, create new-file and commit then git pull,
+used to fetch and download content from a remote repository(at github) and immediately update the local repository 
+(at terminal) to match that content)
+( if you create a file on main branch but you want to push that file to another branch then you need to merge that
+ branch with main branch then you can push)
+> git config --global --edit                            (to edit email/username)
+> git --version                                         (to check git version )
+> git rm file-name                                      (to remove file from git)
+ ( after removing a file commit and push)
+> git log                                               (it will show user name and email and changes has been made)
+  

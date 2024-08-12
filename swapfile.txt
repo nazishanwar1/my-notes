@@ -1,0 +1,14 @@
+> swapon	(to check no. of swapfiles)
+> dd if=/dev/zero of=/swapfile bs=1M count=4096 status=progress	(to make memory full)
+> chmod 600 /swapfile
+> mkswap /swapfile	(to make swapfile)
+> swapon /swapfile
+> cp /etc/fstab /etc/fstab.bkp11212023
+> vim /etc/fstab
+ (/swapfile		none	swap	defaults	0	0)
+> reboot
+
+> swapoff /swapfile	(to delete swapfile)
+
+
+https://www.youtube.com/watch?v=HSbBl31ohjE

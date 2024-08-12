@@ -1,0 +1,45 @@
+
+====== kickstart ======
+A kickstart file is a simple text file that contains configuration information for a Red Hat Enterprise Linux installation. 
+The system reads this configuration information at boot time and carries out the installation process without any further
+input from you.
+
+> yum -y install pykickstart
+> yum -y install system-config-kickstart
+> system-config-kickstart
+  (create a file ks.cfg)
+> cat anaconda-ks.cfg
+ (copy all gnome packages then paste into ks.cfg)
+> vim ks.cfg
+> yum -y install httpd
+> systemctl enable httpd --now
+> mv ks.cfg /var/www/html/
+> cd /var/www/html
+> chmod 755 ks.cfg
+> ksvalidator ks.cfg   (to check issue in the file)
+> firewall-cmd --permanent --add-service=http
+> firewall-cmd --reload
+> getenforce  
+> setenforce 0         (change to permissive)
+
+------ second method ------
+
+> cp anaconda-ks.cf my102-ks.cfg
+> vim my102-ks.cfg
+ (at network information change bootproto=static onboot=on after activate write --ip=192.168.100.102 --netmask=255.255.255.0
+--gateway=192.168.100.1 --nameserver=192.168.100.1 at 2nd line change hostname=vm102 at end of file add pakages 
+     %post 
+      yum -y install epel-release
+      yum -y install git
+      yum -y install tree)
+> now proceed previous procedure          
+
+
+------ at new vm ------
+> start vm then press up arrow then press tab button
+> inst.ks=http://192.168.100.101/ks.cfg  (GRUB menu)
+   
+
+# Reboot after installation
+reboot
+eula --agreed

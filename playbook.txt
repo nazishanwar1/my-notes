@@ -1,0 +1,185 @@
+                                   
+
+
+====== PLAYBOOK ======
+
+Ansible Playbooks offer a repeatable, re-usable, simple configuration management and multi-machine deployment system, 
+one that is well suited to deploying complex applications. If you need to execute a task with Ansible more than once,
+write a playbook and put it under source control. Then you can use the playbook to push out new configuration or confirm
+the configuration of remote systems. 
+Ansible playbooks, executing the defined tasks on the targeted hosts.
+
+------ nfs playbook ------
+> ssh key must be genrated
+> cd /all-yaml/
+> vim server-list ( enter the name of vms at which you want to run playbook)
+> vim nfs-playbook.yml
+> indentation (means spaces) must be correct that are 1,3,5,7,9.parent process have 5 module have 7 child process have 9
+     
+ <<< server-configuration >>>
+                                indentations
+---                                 (1)
+- name: nfs server configuraton     (1)
+  hosts: all                        (3)
+  tasks:                            (3)
+    - name: install package         (5)
+      yum:                          (7) 
+        name: nfs-utils             (9)
+        state: latest
+    - name: start service
+      service:
+        name: nfs-server
+        state: started
+        enabled: yes
+    - name: adding port
+      firewalld:
+        port: 2049/tcp
+        permanent: yes
+        immediate: yes
+        state: enabled
+    - name: adding port
+      firewalld:
+        port: 2049/udp
+        permanent: yes
+        immediate: yes
+        state: enabled
+    - name: adding port
+      firewalld:
+        port: 111/tcp
+        permanent: yes
+        immediate: yes
+        state: enabled
+    - name: adding port
+      firewalld:
+        port: 111/udp
+        permanent: yes
+        immediate: yes
+        state: enabled
+    - name: adding service
+      firewalld:
+        service: mountd   		(mountd=20048)
+        permanent: yes
+        immediate: yes
+        state: enabled
+    - name: create a directory
+      file:
+        path: /nas1
+        state: directory
+    - name: create a directory
+      file:
+        path: /nas3
+        state: directory
+    - name: create a directory
+      file:
+        path: /nas4
+        state: directory
+    - name: add a line in file
+      lineinfile:
+        path: /etc/exports
+        line: '/nas1 192.168.100.101(rw,sync,no_root_squash)'
+    - name: add a line in file
+      lineinfile:
+        path: /etc/exports
+        line: '/nas3 192.168.100.103(rw,sync,no_root_squash)'
+    - name: add a line in file
+      lineinfile:
+        path: /etc/exports
+        line: '/nas4 192.168.100.104(rw,sync,no_root_squash)'
+    - name: exporting
+      shell:
+        cmd: 'exportfs -avr'
+> ansible-playbook -i server-list nfs-playbook.yml --syntax  (to check syntax of playbook)
+> ansible-playbook -i server-list nfs-playbook.yml -C        (to dry run)
+> ansible-playbook -i server-list nfs-playbook.yml           (to actual run)
+
+
+
+ <<< client-configuration >>>
+
+> cd /all-yaml
+> vim nfsclient.yml
+
+---
+- name: nfs client configuration
+  hosts: all
+  tasks:
+    - name: making directory
+      file:
+        path: /nfs2-share
+        state: directory
+    - name: make boot persistent
+      mount:
+        path: /nfs2-share
+        src: 192.168.100.102:/nas4
+        fstype: nfs
+        state: mounted
+
+> ansible-playbook -i server-list nfs-playbook.yml --syntax  (to check syntax of playbook)
+> ansible-playbook -i server-list nfs-playbook.yml -C        (to dry run)
+> ansible-playbook -i server-list nfs-playbook.yml           (to actual run)
+
+
+
+
+
+
+------ lvm playbook ------
+
+
+---
+- name: creatingg lvm
+  hosts: all
+  tasks:
+    - name: create vg
+      lvg:
+        vg: data.vg
+        pvs: /dev/sdb
+    - name: create lv
+      lvol:
+        vg: data.vg
+        lv: data.lv
+        size: 1G
+    - name: create filesystem
+      filesystem:
+        fstype: xfs
+        dev: /dev/data.vg/data.lv
+    - name: making directory
+      file:
+        path: /data
+        state: directory
+    - name: mounting dirctory
+      mount:
+        path: /data
+        src: /dev/data.vg/data.lv
+        fstype: xfs
+        state: mounted
+
+
+
+------ lvextend playbook ------
+
+---
+- name: extend lvm
+  hosts: all
+  tasks:
+    - name: extending vg
+      lvg:
+        vg: data.vg
+        pvs: /dev/sdb,/dev/sdc
+    - name: extending lv
+      lvol:
+        vg: data.vg
+        lv: data.lv
+        size: +100%FREE
+
+
+
+------ ansible playbook variables ------
+
+
+
+
+
+
+> pic install python
+

@@ -1,0 +1,20 @@
+====== fdisk ======
+it is an early version of LVM to make disk partitions 
+
+
+first of all add a disk 
+> fdisk -l (to list all disks and partitions)
+> fdisk /dev/sdb  (sdb is disk name ane this step use to format disk)
+> m (for help)
+> l (list)
+> 8e (linux LVM)
+> n (new partition)
+> p (primary)
+ (a drive has 4 partitions 1 for primary 3 for extended)
+> w (to read table and exit)
+> mkfs.xfs /dev/sdb1 (make file system for 1st partition)
+> mkdir /first-mount
+> vim /etc/fstab (to enter disk partition in fstab)
+> mount /first-mount
+> mount -t auto /first-mount 
+ (if do not mount)

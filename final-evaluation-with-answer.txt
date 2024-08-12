@@ -1,0 +1,947 @@
+Compiled interview questions
+
+1.	How do you reboot Linux system?
+init 6, reboot, shutdown -r
+2.	How to reboot the Linux System into an older Linux Kernel?
+/etc/sysctl.conf is the kernel configuration file
+grub2-set-default
+3.	What is LVM? Talk about three stages of LVM
+Logical volume manager which allows you to make flexible partition so you can extent the logical volumes while being mounted. pvcreate, vgcreate, lvcreate 
+4.	Channel bonding? What are different modes of channel Bonding? How to check the status of Channel Bonding? What Module is required for Channel Bonding? How to establish channel Bonding? What’s the main config file for Channel Bonding?
+To combine two NIC to have high availability and redundancy.   3 modes 0 round robin,1 active backup,5 transmit. 0 is for load balancing 1 is for redundancy if one goes bad other picks up, and 5 is for combination of both. 
+cat /proc/net/bonding/bond0   > teamdctl team-name state
+bonding module
+Create a file and make the entries and [ifcfg-bond0]
+…/ifcfg-bond0
+5.	How the PXE boot works? What if client gets an IP and does not get the booting files? What sort of issues you have faced through Pxe-installs? What are different sections of kick start file? Give examples of how you have made modifications in the KS file at different times.
+Preboot executable environment. Using 3 application tftp server hosts the bootable files (kernel, vmlinuz), dhcp server, and vsftpd. 
+Tftp server has an issue. First look at the dhcp server config file to see if the next server is listed and path to the tftp server is correct. 
+Different section of the kickstart files commands, packages, pre boot and post
+Modifications in the KS file are Path to the OS, root password, packages, partition  
+What’s the path to the file where you list all the OS choices along with their Installing media?
+	
+6.	LDAP: What is LDAP? Give me some LDAP commands that you have applied at work? What is the main configuration file for LDAP? How to bind the LDAP client to server How to query uses using the LDAP command?
+7.	TCP VS UDP? What’s the 3 ways handshake in TCP?
+Transmission control protocol to ensure there is no data loss. Ensures no packet loss
+User datagram protocol focuses more on speed than reliability 
+SYNC SYNC-Acknowledge Acknowledge 
+8.	Bind: - What version of Bind you have worked with? What’s the main idea of HOW Dns works?
+Give steps to set up DNS server? What’s main config file on server
+	/etc/named.conf for server
+	/etc/resolve.conf for client
+	DNS maps IP address with hostname.
+9.	How to migrate from an Old apache server to another OS platform and upgrade apache?
+
+10.	What is NAT?
+Network address translation 
+11.	Init Levels? What is the main config file? Default init level? What are the RC scripts?
+Init 0-6 /etc/rc.d rc0-6 
+/etc/inittab will tell us the default level
+Who -r
+RC scripts are run levels scripts Init executes the RC scripts
+12.	How to check open ports? Give two commands.
+netstat -tunapl ss
+13.	User authentication issue: User can’t ssh. User can’t log into the system.
+SSH service might not be running, 
+14.	Give some Linux Day to Day commands you work with? What’s your favorite command in Linux?
+15.	What RHEL versions have you worked with?
+16.	How do you rate yourself in Linux?
+17.	What’s your level of expertise in Ansible?
+18.	What is the best OS for personal use? OS X Windows or Linux?
+19.	What’s your favorite programming language?
+20.	Do you prefer GUI or CLIs?
+21.	Which private IP address network is better? 10.xxxx. or 192.168?
+22.	Assuming equivalent cores. Which is better? A 4-core processor at 2.8 GHZ or 2-core processor at 3.6 GHz?
+23.	Which is better RAID or Backup?
+24.	RAIDs: talk about RAID 0, 1, 5. 6 and 10? Which raid is better for faster reads and writes?
+25.	Which is more secure Linux VS Windows?
+26.	What does the lock in your web browser mean and would you trust it?
+SSl certificate. Secure connection https protocol using port 443 all data transfer is through encryption  
+27.	If a daemon process suddenly dies on your Linux server what would you do about it? How would you do RCA?
+28.	If a co-worker is telling you to end a process which is taking huge resources on Linux server but that the owner of the process is not present. How would you take care of this situation?
+You have to email the owner and the supervisor to get the permission to kill it.
+29.	Would you recommend cloud computing or in-house servers? Or hybrid solutions?
+Hybrid Solution. You have the option of elasticity.   
+30.	Would you let your users connect their PC to your email servers?
+31.	Difference between RHEL 6 and RHEl 7
+RHEL 6- iptables, kernel version is 2.6, uses init as first process, run levels, EXT4 default FS, 
+RHEL 7- firewalled, kernel version 3.10, uses systemd as first process, targets, XFS default FS
+32.	How would you limit the application to open certain number of files?
+         ulimit -a
+
+33.	What is RAID? RAID 5? If there are 6 hard drives how many hard drives, you can lose before you lose all the data? And what if more HDs fail what will happen to data? How the data will be recovered? Also talk about RAID 6
+2 HDD you will lose data. 
+34.	How can you deploy an application on 100 Machines? Let’s say apache httpd
+Shell or ansible 
+35.	How to configure Linux access without password?
+Ssh-keygen ,   ssh-copy-id
+36.	How to check IP address in Linux and Windows?
+Ifconfig, hostname  -I,
+	ipconfig 
+37.	Machine is communicating OK with other systems but not connecting with internet.
+Seems like a default gateway issue. Outbound route might be blocked. 
+38.	What is the RDS, Elastic IP in AWS? How to configure DNS in AWS?
+Relational Database Service. Elastic IP is static IP address. Route 53
+39.	Walk me through your server provisioning process? Walk through the provisioning process in AWS?
+Look for EC2 service and launch an instance. AMI, resources, storage, tags, VPC, security group Launch 
+40.	How do you automate tasks in AWS? What other AWS services you use? What you use for CI/CD in AWS?
+Using system manager, under change management, click on automation, then you can execute automation using aws document like patching, security, ec2 instance management. or create our own based on the need. 
+41.	How do you schedule jobs?
+Using crond service. Crontab -e to schedule a job. Configuration file /etc/sysconfig/crond and jobs are saved under /var/spool/cron/username and /etc/crontab has the example file.
+Crontab -l to list
+Crontab -e to edit
+Crontab -r to remove a cron job
+42.	What do you use Ansible for? Give examples?
+We use ansible to automate daily tasks for example, update systems, gather facts about managed nodes, create users, start, stop, enable services, set firewall rules, copy files, push configurations. App deployment.
+43.	Give me an example where you used shell scripting skills? Walk through the script.
+I had to update 100 servers, I used a for loop script to achieve that task. I created an inventory file where I made an entry for all the hosts, using the for loop, I used a variable using the inventory file as the values then ran the command to update all the systems. 
+44.	How big is your environment? How about your team size? How many servers you manage by yourself?  
+My environment consists 
+
+45.	What to do if /var is full? Check which file is largest by du -h, make tar ball, delete empty files 
+46.	LVM: - How to list all the attached disks? List LVM based partitions?                                                              LVDISPLAY -m echo scsi scan command , lsblk,
+47.	What if you can’t ping google?                                                                                                                               ping ur own gateway, check network config file, make sure u don’t have DNS problem, 
+48.	How do you manage your RPMS? 
+
+49.	What is Redhat satellite channels? 
+A Red Hat Satellite channel is a collection of software packages. Channels help you segregate packages by sensible rules: a channel may contain packages from a specific Red Hat distribution. A channel may contain packages for an application or family of applications.
+
+50.	How to add a user so he needs to create password on his first login? Create user assign passwd and then do passwd -e username 
+Chage -d 0 username 
+51.	How to change server name, ip address
+hostnaemctl set-hostname <new.hostname>
+Vi /etc/sysconfig/network-scripts/ifcfg-file 
+52.	How to list default gateway?
+Route -n, ip route- netstat -rn
+53.	Difference between rpm -I and rpm -U 
+Rpm -I install packages
+Rpm -U to upgrade packages
+54.	How would you troubleshoot performance related issues in Unix/Linux, windows?
+Top,  	look into different resources like cpu, memory, swap, I/O (wa). 
+Cpu	 related issues: vmstat 1 5, uptime, lscpu, top, sar -u
+Memory:	 free -h, vmstat 1 5, top, sar -r 
+Swap: 	vmstat 1 5, top, free -h, sar -S
+I/O	 (network, hard disks) vmstat 1 5, iotop , iostat -xz 1 5, sar -n DEV, ifstat, tcpdump -i (interface card), iftop 
+55.	How would you check historical performance related issues/statistics?
+I would use the sar utility and fetch any data related to any resource.
+56.	Where are sar logs kept?
+/var/log/sa
+57.	Example of hardware related issues that could cause a server to crash, what steps you would take to troubleshoot?
+Hard drive failure, cpu failure, ram failure, power supply failure, fans failure. 
+Cat /var/log/messages for warnings or errors that could cause the server to crash
+Incase of a server crash, I would use the crash utility (kdump) to gather logs related to that specific crash. 
+58.	Any specific utilities for data collection if you had a hardware issue to send to the vendor?
+Lshw -short < not an accurate answer > 
+kdump is a feature of the linux kernel that creates crash dumps in the event
+of a kernel crash. when triggered, kdump exports a memory image that can be 
+analyzed for the purposes of debugging and determining the cause of a crash.
+SOS report 
+59.	RHEL cluster, VCS, oracle rac pace maker, Microsoft clustering, what specific log would you check to troubleshoot issues or what would you do for configuration?
+60.	Describe your familiarity with storage area network that relates to Linux window servers, what are some proactive measures you would take to trouble shoot storage related issue on the server?
+We have a storage team that deals with SAN. I have not dealt with SAN personally.
+61.	Filesystem that was at 100% capacity, how would you find what was filling up that filesystem?
+Du -h /path/to/file/system | sort -h
+62.	What is your familiarity with tools to access server console?
+ILO for HP Servers
+IDRAC for DELL servers
+Vcenter for Virtual machines on Vmware Esxi
+63.	What is your experience in server virtualization technologies?
+Vmware Esxi hypervisor for virtualization. 
+Open stack (open source cloud computing platform that competes with Vmware )
+64.	Knowledge of server patching?
+A good knowledge of patching using updating kernel, applications, packages, fixed bugs and weaknesses. We use
+ <shell scripting > < ansible automation> to patch servers. we also use redhat satellite to schedule patching. 
+Red Hat Satellite is a system management solution that enables you to deploy, configure, and maintain your systems
+ across physical, virtual, and cloud environments.
+65.	How to verify if a patch was successful? Any commands you can run on server to verify patch was installed?
+Rpm -qa <package> , yum list installed | grep <package>, yum history. 
+If you update the whole system then you have to reboot and log in to verify the updates
+66.	What are some of the troubleshooting steps to identify network related issue?
+Ethtool, Ifconfig, ping gateway, review ifcfg file, restart network, traceroute ip to see where packets are dropping.
+67.	You have an ip address and you want to find the host name what command you would use?
+Nslookup <ip> 
+dig <ip> 
+ host <ip>
+68.	script to identify zombie process and terminate it?
+#!/bin/bash
+      2 ps -ef | grep Z | awk '{print $3}' > /tmp/pid.txt
+      3 for i in `cat /tmp/pid.txt`
+      4 do
+      5 kill -s SIGCHLD $i
+      6 done
+69.	Give an example where you had offered an effective solution, while working with a diverse team spanning multiple departments or organization?
+< do your own research > 
+70.	Kernel tuning, how would you change the parameter and how would you make it boot persistent?
+kernel tuning is changing the kernel behavior by changing the different kernel parameters values while the system is running. 
+You can change kernel parameters using commands on the cli :
+Sysctl kernel.pid_max=new.value will change the kernel pid max parameter without making it boot persistent. 
+ sysctl -w kerenel.parameter= <value> >> /etc/sysctl.d/new.file 
+vi /etc/sysctl.conf and enter the new parameter value and when done, run sysctl -p /etc/sysctl.conf 
+71.	What is your experience with CentOS? Upgrades, support role?
+CentOs is an open source based on red hat, I used to have Centos on my own environment back in a day. A very beautiful OS. 
+72.	What’s your experience in diagnosing problems with Centos without vendor support?
+Own research. Own documentation. Multiple credible online sources. 
+73.	Rate yourself in Linux?
+I’d say 8 out of 10 because there is always a room for improvement. 
+74.	How many servers you have managed in what kind of activities you are involved in?
+4 to 5 thousand production servers. most of them are RHEL 7. I do system patching, upgrades, user management, application support, maintain health of the server. Monitoring server’s performance. Configuration changes. App deployments. Provisioning servers, decommissioning servers. 
+75.	When you build a server do you do any customization or apply any playbooks?
+Based on the need of the customer or devop teams, we use kickstart file to meet those needs.
+On VMware we use a template to provision servers. 
+76.	What is your patching process?
+Updating machine, whether it was kernel, package, applications. We get updates requests from The vendor, security teams. We use ansible playbook, yum module to update systems.
+77.	You did patch set of systems and how would you know if the system were patched successfully?
+Using ansible command module, we verify the update using “rpm -qa <package>” and make sure
+It’s been updated.
+78.	You patched systems and did kernel upgrade and system didn’t come back up. What now?
+Reboot system into an older kernel <grub menu> then type yum history then get the id to make sure you’d type yum history info ID 
+Get the id for the patch and yum history undo ID 
+79.	System is up and running, you login a system takes a long time to respond to any command you type? Not NFS related … 
+Could be I/O bound bottleneck. <network, hard disk> or a memory bound bottleneck. I’d tail -f /proc/meminfo and tail -f /proc/cpuinfo . Take the usual performance troubleshooting steps. 
+80.	What’s your decommissioned process? 
+1 TB storage for one application, application owner has requested to decommission the server, but he wants to use the same storage and same file system on the different VM? What will you do on the server being decommissioned, and what will you do on the new server which you are trying to move the data on, all the steps in detail? He said LVM/ exportVG
+1.	Umount /mountpoint.
+2.	Make the volume group inactive <vgchange -an vg-name> 
+3.	Export the volume group. <vgexport vg-name>
+4.	Unplug the disk.
+5.	Attach the disk to the new server < pvscan > it should be /dev/sdb or /dev/sdc
+6.	Import the volume group <vgimport vg-name /dev/sdb or dev/dc>
+7.	Activate the volume group < vgchange -ay vg-name>
+8.	Mkdir -p /new.mount.point
+9.	Mount /dev/vg-name/lv-name /new.mount.point
+81.	100 file systems mounted on one server and one of the file systems is having problems. Df -h hangs you don’t get any output. How to identify the file system having problem?
+Strace on df -h and find out the filesystem and then grep from mount command and troubleshoot the nfs server.
+82.	Do you work with VMware Vcenter? How do you take console access to VM on Vcenter?
+Yes, I have. We manage our Esxi hosts using Vcenter. We use the hostname in a browser, use our login name and password and access vcenter. 
+83.	What ticketing system you use? Incident management tool? 
+Service NOW (SNOW)
+84.	What tool you use for logging?
+ Splunk
+85.	Automation tool used in your company.
+Ansible
+86.	Have you been in a position where you had to learn new things? How did you handle it?
+Yes, I had to learn how to work with AWS to launch EC2 and S3 buckets. 
+87.	Talk about a skill that you picked up recently and how did you go about learning it?
+We got that. Next question
+88.	Talk about Ansible experience and what playbooks you have written?
+I’ve worked with ad-hoc commands. Yum,service,lineinfile,user,set-up modules. I’ve been a part of a project to write some playbooks to deploy apps, update systems, stop,start,enable services. 
+89.	How do you keep an eye on your environment and when things don’t work where do they get reported?
+NagiosXI to monitor all of our servers. they get reported to Servicenow. 
+90.	What monitoring tool you worked with? How does the Nagios plug in get installed on your servers?
+NagiosXI. I was never a part of installing plug ins in the servers, however, I’ve been a part of installing NRPE on some of the new servers. install it, ./execute it. 
+91.	What sort of things you monitor on your servers?
+Cpu , memory, hard disks, network, swap space, different application, processes, mount points, etc.
+92.	Linux systems went down what steps you take to bring it up?
+Troubleshoot networking if that caused the system to go down, in the event of a kernel fails to load itself , interrupt the Grub menu and Boot into single user mode as a root, run journalctl -xb | grep -I failed or error
+
+93.	What is DNS and how it works?
+Domain name system. maps hostnames to ip address and vice versa. It uses dns records to query hostnames and ip address like PTR record and NS record.
+94.	Server is slow? How do you troubleshoot the situation?
+CPU,I/O(network,disks),MEMORY.
+95.	You have web application hosted in AWS Linux server and all sudden traffic increase and a lot of people are visiting your site. How would you increase the capacity?
+EC2 dashboard, click on the ec2 running the web application, increase ec2 resources. Or add an autoscaling group and make the ec2s a part of that group. 
+96.	How can you find out if an APP is slow or system is slow?
+Run the top command to get an aerial view of the system resources. They usually go hand to hand since the app is using the system resources.
+97.	Configuration file for ssh.
+/etc/ssh/sshd.conf
+98.	Difference between du and df
+Disk usage to give estimate size for files and directories. 
+Disk free gives system wide mount points and their size. 
+99.	Difference between su and su –
+Su = switch user without adopting home environment
+Su - = switch user adopting their home environment. 
+100.	If you want to run same command on 100 servers what tool you would use?
+I’d use a shell script using for loop. 
+Ansible 
+101.	User complaints about slow server
+Troubleshoot the CPU,I/O,Memory.
+102.	Nfs configuration on server and client side?
+Server:
+Install nfs-utils
+Make an entry in /etc/exports
+Exportfs -var
+Turn nfs service on and add firewall rules (nfs,rpcbind,mountd)
+Client side: 
+Install nfs-utils
+Mount -t nfs <serverip:/path/to/share> 
+Configuration file  /etc/sysconfig/nfs
+103.	How to enable nfs service on server side on rhel 6 and rhel 7
+Service nfs enable > rhel6
+Systemctl enable nfs > rhel7
+104.	Favorite esxi commands?
+I had no access to the esxi ssh. I’ve only dealt with the client side vsphere. 
+105.	Steps to add more resources on VM such as CPU and memory
+By default, you cannot add CPU resources to a virtual machine when the virtual machine is turned on. The CPU hot add option lets you add CPU resources to a running virtual machine.
+
+There are some requisites to enable the CPU hot plug option, you need to verify that the VM is running and is configured as follows:
+
+Virtual machine is turned off.
+Virtual machine compatibility is ESX/ESXi 4.x or later.
+Latest version of VMware Tools installed.
+Guest operating system that supports CPU hot plug (basically have a “recent” OS, for Windows from Windows Server 2008 or Vista).
+To enable the CPU hot plug option:
+
+Right-click a virtual machine in the inventory and select Edit Settings.
+On the Virtual Hardware tab, expand CPU, and select Enable CPU Hot Add.
+Click OK.
+106.	Steps to migrate VMs from host esxi to another
+Using Vmotion enables live migration of running server from one physical server to another
+Steps: click on the desired vm to be migrated.
+2- click actions. Chose to migrate. 
+3. select migration type. 
+4. select network and vmotion priority and finish. 
+107.	One of your servers is turned off at data center and its in remote location how would you handle this situation?
+Take the console (vcenter for vm) (ILO for hp physical server) (IDRAC for DELL physical server) and power it on.
+108.	Have you worked with GFS?
+The Red Hat GFS file system is a native file system that interfaces directly with the Linux kernel file system interface (VFS layer) and no we have not worked with GFS.
+109.	What new technologies you are interested in learning?
+Aws, cloud computing is the future, I’d like to be an aws engineer. 
+110.	What automation tool you have used for rpm and yum package management
+Ansible. 
+111.	How do you patch server?
+Using Ansible tower, we schedule server patching. 
+112.	In Ansible can you write YAML code?
+I’ve deployed and patched some servers using YAML code. 
+113.	What do you know about Channel Bonding? Nic Bonding? Nic Teaming?
+I’ve only worked on network bonding and it can be defined as combining multiple nic into a single bond interface.
+the main purpose is to provide high availability and redundancy.
+114.	What HP and Dell servers you worked on?
+HP ProLiant DL 360, 380 gen 7,8,9.
+Dell PowerEdge R720, R710.
+115.	In RHEL what have you worked on?
+I’ve worked on user management, app deployment, patching, ssh, logical volumes, permissions.
+116.	In top one process is taking 600% of the CPU. What does that mean?
+That means there are 6 process being executed per cpu at the same time. 
+117.	How would you install Esxi on BM?
+118.	How to remove Cache?
+119.	LVM: - LVM if full, VG is out of space. Go through the process of attaching new HD?
+120.	How would you request for new Logical Unit Number and attach it to Linux system?
+121.	Need to increate CPU from 10 t0 20 cores and this is BM server in data center
+122.	Linux Boot process
+123.	Init Levels
+124.	What does iptables config file contains
+125.	What’s zombie process? How to list it?
+126.	Tell me about incident / change management? Some tickets you worked on
+127.	Crontab usage?
+128.	Overview of Ansible?
+129.	How did you perform patching? 5 servers need to be patched. How would you go about doing that?
+Using ansible or through a shell script. 
+130.	System is not booting … troubleshoot?
+Reboot again, read the error, based on the screen you’re on 
+Bios: fix the boot order. 
+Grub menu: 1. initramfs image got corrupted.
+       2. After kernel update, kernel was not booting up, had to go into rescue mode and yum history undo update.
+131.	Soft link VS Hard link?
+Soft link: is a pointer to a source. Can be across partitions, have different inodes numbers. Can be for files and directories. 
+Hard link: is an identical copy of the original file. can not be across partitions. Have same inode numbers. Independent  from each other. 
+132.	Any project you worked on made an impact performance wise?
+I was a part of a project that mounted nfs share to 1000 clients using ansible mount module. It was rather quite the achievement. 
+133.	Talk to me when the machines go through reboot and comes back (boot process)
+Bios > performs hardware integrity check and loads and execute MBR boot loader.
+MBR> loads and execute Grub boot loader.
+GRUB > loads and execute kernel and initrd image
+Kernel > execute the first process init or systemd
+Init > execute the default init level (run control) rc script.
+Run level > executes the programs associated with the default run level. 
+134.	Boot process difference in RHEL 6 and RHEL 7
+Last two parts are different init and run level on rhel 6 while it’s systemd and target on rhel 7. 
+Rhel 6: Init /etc/rc.d which has all run levels and respective scripts 
+Default run level is /etc/inittab
+/etc/init.d has all the services installed on the system. 
+Rhel 7: target resides /etc/systemd/system/defaut.target
+All targets and all installed services are under /usr/lib/systemd/system
+135.	Talk about performance tuning? What parameters you used to improve performance
+Kernel tunable values that can be changed while system is running without the need to reboot the system.
+We have used kernel parameter kernel.pid_max
+We have worked vm.drop_caches = 0 and changed it to one to free up some cache on the run time. 
+We have worked with vm.swappiness where we have tuned the value of this parameter to 30 to lower the aggressiveness of swapping from the ram. 
+136.	What challenges you face when deploying apps using ansible?
+Using ansible tower, we deployed httpd on 100 servers using yum module and I used handlers notifying my second task to start and enable httpd if the httpd was installed, however, some servers had httpd installed, therefore, handlers never got called so I had to add tags and skip some of the servers.  
+137.	How would you configure HA on VMware cluster?
+
+138.	What’s the underlying language Ansible uses?
+
+YAML language for playbooks. However, ansible is written in Python.
+139.	Why is the server so slow?
+Troubleshoot the possible I/O (had disk , network, Swap) ,CPU , memory. bound bottleneck.
+140.	Server has shared NAS volume mounted. You want to migrate it to another server. How can you make sure that you get the same mount on another server?
+Vi /etc/exports
+Add the new servers ip address and permissions on the same line of the nfs mount share.
+141.	Let’s assume you have created logical volume on SAN storage and want to use that Volume on another server. How would you do it?
+
+142.	How do you check the network speed?
+
+Ethtool | grep -i speed 
+143.	If one of the HD fails what are the steps you are going to take to fix it?
+Depending on raid level, follow the procedures. If there is a parity, then open a change request ticket and contact the field technicians to replace it. 
+144.	Are you involved in any DR activities? What do you do?
+Backup servers to physical servers and move them to a different location.
+Not often, however, I’ve been in a project where I was involved in setting up a disaster recovery plan for a new cluster in our vcenter. The DR consisted of a mirror cluster that was running in parallel with the cluster using DR.
+145.	How would you know which hard drive is failing?
+sudo smartctl -a /dev/sda | less 
+smartctl is Control and Monitor Utility for SMART Disks. 
+Cat /var/log/messages | grep for errors
+       
+146.	What have you done on hardware side?
+Replaced hard drives, cpus, memory, power supplies. Racking and stacking. 
+147.	Talk about major critical issues or tickets you worked on in last 60 days?
+-	User could not ssh
+-	Server will not boot up after a patch.
+-	/var/log was full. 
+
+148.	Questions asked on shifts which shift did you work? How did you hand over the work to your co-worker? If you faced an issue during your shift and fixed it, how would you hand it over to the next person on the shift? 
+(My answer was we send out an email to our team (cc-ing our manager/team lead) regarding the steps/things we did throughout our shift / issues we face etc. so everything is kept tracked off)
+149.	Why are you leaving your current job?
+Because my contract is about to end. 
+150.	What activities were you involved in patching the servers like what was your role?
+Create the servers that need to be patches inventory, run the already existing playbook to update the servers, make sure the servers have been updated and are back online after rebooting.
+151.	Did you work on performance tuning?
+Yes, system performance nicing and renicing processes, getting rid of unwatned processes. 
+Kernel tunning, yes. Pid tunning of the kernel, swappniness of the vm.
+152.	What challenges you faced when deploying apps using Ansible?
+Using ansible tower, we deployed httpd on 100 servers using yum module and I used handlers notifying my second task to start and enable httpd if the httpd was installed, however, some servers had httpd installed, therefore, handlers never got called so I had to add tags and skip some of the servers.  
+
+153.	Describe your work experience and day to day responsibilities
+Answer based on your environment.
+154.	 How did you monitor your VM environment?
+We had nagios in our environment. Also from the vcenter vSphere client. 
+155.	Tell me about your experience with VMWare Esxi and how did you work with them?
+We have installed vmware esxi on baremetals and also as a hosted architecture. We have installed vms on esxi’s. 
+We have also installed many esxi’s hosts on vcenter. 
+156.	Your exposure to containers?
+We just got exposed tonight. Fresh. 
+157.	How did you deploy Ansible in your environment?
+Ansible was already implemented in our company by the time I started. I have worked with ansible tower, wrote some playbooks, ran some ad-hoc commands and we use ansible to patch the servers.
+158.	What’s your understanding of VLans?
+Virtual local area network and there was a team that took care of it.
+159.	What is your understanding of ISCSI storage arrays?
+iSCSI is a block protocol for storage networking. 
+160.	What’s the DHCP used for?
+Dynamic host configuration protocol and its used to assign ip addresses to servers.
+161.	How to convert BM to VM?
+Convert a bm to a vm you need to get a back up, have a conversion tool vconverter, and a hypervisor then move to the vm.
+162.	What is ntpd used for?
+Network time protocol daemon and it’s used to for time synchronizing. 
+163.	What is $? And $0?
+$? = command exit status and $0 = current shell
+164.	What are kernel modules?
+Kernel modules are pieces of code that can be loaded and unloaded into the kernel upon demand. Lsmod to list the module and modprobe <module> to load the module and modinfo <module> to get more info. Path is /usr/lib/modules.
+165.	What is Umask?
+The default set of permissions for newly files and directories. 
+166.	Run levels and how to change it on running system
+0 to 6. Change it on a running system by running cli command init <runlevel> or edit the configuration file 
+/etc/inittab on rhel 6, but on rhel 7 use systemctl set-default <desired.target> 
+167.	Share a directory on NFS server
+Vi /etc/exports
+/mount.point clientip(permissions)
+Exportfs -a
+168.	What’s an Inode number? What if inode reached the capacity?
+It’s a unique number that contains the meta data of files and directories. If it reaches capacity you can’t create any more files. You have to extend fs or delete files.
+169.	What’s piping? Give examples where its used
+Converting the output of a command to an input for the second command.
+170.	Difference between multiuser and multi-tasking?
+More than one user. More than one task. 
+171.	What is default virtualization technology in RHEL 6?
+KVM 
+172.	What is zombie process and how to find all zombie processes and kill them?
+A zombie process is an orphan process that is only left with a pid. Ps -ef | grep Z, kill them by running kill -17 zombie PPID. 
+173.	What log file contains all rpm/software/yum installation logs?
+/var/log/yum.log
+174.	What is kick start?
+A text file that contains installation script to automate the os installation without human attendance.
+175.	What are the must have partitions?
+/ and /swap
+176.	How does Ansible work? How does it manage its clients? How do you install ansible?
+Ansible is a configuration management tool that uses the push mechanism to its managed nodes via ssh. You install it yum -y install ansible
+177.	What is command syntax to check the version?
+Ansible --version
+178.	What is command to check the version?
+Ansible --version
+179.	How do you configure Apache Webserver in the playbook?
+Yum module, service module, copy module, firewalld module. 
+180.	How to view root user cron jobs
+Cat /var/spool/cron/root
+181.	Where are the system wide cron jobs?
+/etc/cron.d
+182.	Id number for root user?
+0
+183.	Command ldd /bin/ls would do
+list shared library dependencies for ls command
+184.	How to register a machine using cli with Red Hat Satellite?
+Subscription-manager register <hostname of redhat satellite>
+185.	Where are the boot log messages?
+/var/log/boot.log
+186.	Two ways to see mount points.
+Df -h, mount, lsblk 
+187.	Command to list all network interfaces of system.
+Ifconfig -a. 
+188.	How to temporarily set ip and netmask of interface?
+Ip addr add ip/netmask dev <nic name> 
+189.	How to enable and disable service at boot time?
+Systemctl enable and disable
+	Chkconfig <service > on or off
+190.	How to update find packages(whatprovides) using YUM
+Yum update <package>
+Yum search <package > 
+191.	Command to list all YUM repos on the system where are all the yum repos on your system, how to disable repository?
+Yum repolist
+Yum-config-manager –disable <repo>
+192.	How to install upgrade and erase packages using RPM?
+Rpm -U to upgrade
+Rpm -e to erase
+193.	Find command search for a file named test.txt?
+Find / -type f -name “test.txt”
+194.	Setting up cron jobs at certain time and running a script with cron job?
+Crontab -e set the time and give full path to command. To run a script, make it executable and give full path to script. 
+195.	Creating user with a 500 uid, name of the backup and default group of backups also add the user to another group?
+useradd backup -u 500
+usermod -aG user2 backup
+
+196.	Command to create LVMs on raw partition?
+Pvcreate , vgcreate, lvcreate.
+197.	Command to display text-based menu for partitioning?
+fdisk
+198.	What protocol does ping and traceroute uses?
+ICMP
+199.	How to extend logical volume by 20G?
+Lvextend -L +20G /dev/vgname/lvname
+200.	Command to display vg and lv?
+Vgdisplay and lvdisplay
+201.	File where NFS shares are written?
+/etc/exports
+202.	What is NS, MX, PTR and A record?
+Name server record identifies the authoritative name servers for a zone.
+Mail exchange record: accepting mail for a domain
+Pointer record: enable reverse dns look ups of ip addresses to hostnames.
+A record: maps hostnames to ipv4 address.
+203.	What functions does DNS performs typically on your system?
+Map hostnames to ip address. 
+204.	Talk about docker and Kubernetes?
+Docker provides isolation of application and it’s dependencies in contained environment. 
+Kubernetes manages docker. 
+205.	What is ILO
+Is a console for hp servers. 
+206.	From security standpoint do you have experience disabling services?
+No, cyber security team has always dealt with it. 
+207.	What does SAR provide?
+SAR provide system activity report and historical data. 
+208.	How do you check memory stat CPU stat?
+ vmstat 1 5 lscpu, cat /proc/cpuinfo. Sar -u, sar -q
+free -h, vmstat 1 5, cat /proc/meminfo, sar -r 
+209.	If you have VM partition and you want to reduce the size?
+Reducing in xfs is not doable. However you can reduce a logical volume in ext3,4. Lvreduce -L +size /path/to/file/system. unmount is a must. 
+210.	What is finger command used for?
+User information lookup. 
+211.	To make system secure what steps you would take?
+Remove unnecessary packages. Keep system up to date. Use a key-based authentication. Use custom ports especially for sshd. Disable root access. 
+212.	What does SAR report?
+System activity and data
+213.	How to check memory and CPU stats?
+214.	If you have a partition on VM and you want to reduce the size, how would you?
+215.	How to enhance security of password file?
+You can use the chattr command, chattr +i /etc/shadow will permit it’s accidental deletion. It will also prevent any access to the file which means you can not create users. Chattr -i /etc/shadow will remove 
+216.	Suppose ftp server is hacked, server now needs to be restored, how should you restore the original kernel system files?
+Cyber Security team will deal with it. 
+217.	Why should you avoid telnet on your systems?
+It’s not encrypted.
+218.	What command used to check the number of files disk space and each user defined quota?
+Ulimit -a will list all. Ulimit -n for number of files. Ulimit -a <username> 
+Path /etc/security/limit.conf
+219.	Path to system logs?
+/var/log/messages
+220.	How to remove last line in a file?
+Sed -i ‘$d’ /path/to/file
+sed -n '$p' /etc/hosts > print the last line of the file.
+221.	How to check the length of a file?
+Wc -l /path/to/file ls -lh /path/to/file
+222.	Extract certain information from file?
+Grep for it. egrep for multiple strings. Awk to grep a column
+223.	You are setting up test environment and there is data that needs to be copied over to test server from prod server. How would you do that?
+Scp 
+224.	Can you check if the file is zipped?
+File file
+225.	App team has reported that there is an issue with a particular process. Process is hung, how will you solve this problem?
+I’d contact the app team to let me restart it if possible. 
+226.	How will you find which operating system your system is running on?
+Cat /etc/redhat-release
+Cat /etc/os-release
+227.	How do you know if a remote host is alive or not?
+Ping it. 
+228.	How do you use the command line history in Unix?
+History | head or tail any number 
+229.	How would you find out which process is hogging the CPU?
+Top , shift p.
+230.	How do you check how much current space is left on the drive?
+Df -h
+231.	Can you specify the difference between absolute path and relative path?
+Absolute path start with the / 
+And the relative path is relative to your pwd
+232.	What is the FIFO?
+First in first out special file, named pipe. Mkfifo <filename> it’s a p type file. 
+233.	What does it mean the Super User?
+User has elevated privileges. 
+234.	What is the process group?
+Process groups allow the system to keep track of which processes are working together and hence should be managed together via job control.
+235.	What activities were you involved in on red hat satellite in terms of administrator’s point of view?
+Provisioning machines through redhat satellite: 
+-	Go to host, login
+-	Host tab ,create host and get the template and click on edit profile.
+-	Enter information from the system design package that’s been provided by manager. 
+-	 Hit build button. Will provide an iso image. Install it. and start previsioning. 
+236.	What activities were you involved in patching the servers? Like what was your role?
+Get a service request, manage inventory, run playbook. Make sure all servers are patched properly. 
+237.	What is performance tuning?
+238.	How would you configure HA on VMware cluster?
+https://docs.vmware.com/en/VMware-vSphere/6.5/com.vmware.vsphere.avail.doc/GUID-4BC60283-B638-472F-B1D2-1E4E57EAD213.html  < read this > 
+239.	What is the underlying language for ansible?
+Python for ansible, yaml for playbooks
+240.	What is vblock in aws?
+
+241.	Why is the server slow?
+
+It can CPU inbound bottleneck, IO, Memory.
+242.	You want to run a webserver container (serving static HTML files), the static files are located on your computer under /tmp/html – describe the required steps to run the container
+
+243.	You want to make sure a container is always running, healthy and in case of a server failure – it will be running on a different server? what tools Docker provides you?
+
+
+244.	Difference between rpm and yum
+Redhat package manager vs yellow dog update manager. Rpm does not resolve dependencies while yum does.
+245.	Nagios, do you just monitor or implementing new plugins or service
+Just monitor.
+246.	What is vmotion?
+Vmotion allows the live migration of vms from one physical server to another.  
+247.	How to create a new vm and deploy an OS
+Log into vcenter, search for esxi host and create a new vm, you can customize it to your need or chose a template to prevision a server.
+248.	How to trouble shoot pxe boot not giving an ip addr
+Can be a dhcp server configuration file error. Dhcp firewall. /var/log/messages. 
+249.	What is TCP
+Transmission control protocol, uses 3 ways handshake to establish connection.
+250.	Where would you use tcp and where would you use udp
+Transferring files is best used with tcp like scp or https.
+DNS uses udp for name servers’ queries, tftp, dhcp.
+251.	What are nic bonds for
+To combine two nics for high availability and redundancy 
+Bonding modes : 0= load balancing , 1= redundancy, 5 = both.
+252.	What’s git?
+Git is distributed version control system.
+253.	How to check ipaddr of server , and what to do to have network config changes take effect right away
+Ifconfig , ip addr , ifdown <nic> ifup <nic>
+254.	How to change Ip on server
+Ip addr change ip/subnet dev <nic>
+Vi /etc/sysconfig/network-scripts/ifcfg-<nickname>
+255.	Difference between a private and public ipaddr
+Private ip addresses are used within the local network, public ip address is used to communicate with the outside world. 
+256.	What is NAT?
+Network Address protocol. It’s used to convert public ip address to private and vice versa. 
+257.	If I tell you open source what comes to mind. How is Linux open source.
+Its free. It’s source code is opened to the community. You can use, edit, change, redistribute the source code to your need. 
+258.	did you use git repository? Tell how did you use it for?
+Yes, we use git repository to push playbooks to the git repository. It’s also connected to the ansible tower to be applied in my projects.
+259.	how do you run a bash script assuming it’s an executable file and you’re in the current directory?
+./script
+260.	how do you edit your scripts and what other tools?
+We use vim editor.
+261.	how can you loop a task and syntax?
+Using the for loop. For <variable> in <items>; do <task>$variable; done 
+262.	Ticket for NFS not running what would you check on the server? What are the services required and tell me steps?
+Check the server’s network. Nfs service. Rpcbind. Firewall settings to have nfs, rpcbind, mountd added. Check the /etc/exports. Cat /var/log/messages. Showmount -e to see what’s being exported.
+263.	Ordered new disk how would you go ahead add new disk to volume group?
+Scan for newly added disc and make sure its present with lsblk command 
+Pvcreate 
+Vgextend volume group /dev/disk
+264.	How would mount it on a reboot?
+Make an entry in /etc/fstab
+265.	Two host A and B,  User asks me to configure ssh and make it password less. Where are keys saved?
+Generate the keys ssh-keygen -t rsa
+Copy keys ssh-key-id ipaddress
+Keys are saved ~/.ssh directory
+Keys are saved inside .ssh/authorized_keys file
+266.	Trying to ssh as root and put in correct root password and it’s not working; how would I troubleshoot that?
+Check the ssh configuration file for two paramaeters at least (Permitrootlogin, passwordauthentication)
+Chek the log file /var/log/secure
+
+267.	User calls me up and says I’m not able to write to filesystem and filesystem is not full? What you would do and the steps?
+Check the inode df -i on filesystem
+Check the Permission for user
+268.	I have /tmp mount point I have files that are 0 bytes how would I delete them and what command you would run?
+Find /tmp -type f -empty -exec rm {} \;
+269.	Two Redhat clusters, what are the commands?
+270.	Do you know how to create golden template on VMware?
+yes, provision a new virtual machine or you can convert an already existing vm to template. Login to vcenter vsphere client and go to vm and go to actions and convert it to template.
+271.	If on your server Linux vm, they want to add another lan interface for a different subnet what steps would you take?
+Go to vcenter and add a new network interface to your vm and create a configuration file inside your vm ifcfg-newnic and add values provided by network team.
+272.	System load average very high? What tools and steps?
+Uptime
+Top
+Vmstat
+Sar -q
+273.	Server client side can ping netback master they are saying that they are not connecting what commands would you run?
+274.	Request to configure bonding for two Nic, how would you check which Nic you have and steps to configure.
+ifconfig
+Cat /proc/net/bonding/bon0
+275.	Have you ever migrated application or servers or os upgrade?
+Yes I have migrated vm through Vmotion and upgraded the OS from RHEL6 to RHEL7. Redhat-upgrade-tool
+Redhat-upgrade-tool –iso path to image –cleanup-post
+276.	Have you been involved DR?
+Disaster recovery, and I was not part of any project related to DR.
+277.	what Linux flavors have you worked on?
+RHEL, Centos, 
+278.	how do you configure journaling in RHEAL 7?
+/etc/systemd/journeld.conf
+Deamon is systemd-journeld
+
+279.	how to do rd.break in RHEAL 7
+grub menu do e for edit the kernel and go to line ending with linux16 and add rd.break and then do ctrl+x
+280.	If LVM is corrupted and have no backup how will you recover?
+Unmount the file system, then run xfs_repair /path/to/lvm for xfs file system. and fsck and e2fsck /path/to/lv for ext3,4.
+281.	how will you create dynamic host inventory file in ansible?
+It’s a script to get data using json language. Never worked with it. always used ansible default inventory.
+282.	in a playbook if you want to perform one specific task on local host how will you do that?
+Just write one task specifying local host in hosts. If there are more tasks then use tags to skip the other plays.
+283.	what is versioning in S3?
+Versioning is the state that the s3 bucket can be in. by default it’s un-versioned, you can chose version-enable and you can also suspend it. 
+284.	How will you create snapshot in EBS?
+Go to EBS or snapshot on left panel, press action, create snapshot.
+285.	What services have you used with AWS?
+EC2 instance, EBS, EFS, IAM, S3. Cloud watch.
+286.	Have you used cloud formation?
+Yes, we have used cloud formation to prevision ec2 instances via Json templates. 
+287.	Are you familiar AWS RDS?
+NO, that was database team.
+288.	What is route 53 in AWS?
+It’s a scalable  aws DNS service
+289.	In cloud watch what is three states an alarm?
+Ok, alarm or insufficient.
+290.	When you are using Lambda are you charged with code when it’s not running? Are you charged when it is running?
+AWS Lambda is a serverless compute service that lets you run code without provisioning or managing servers, creating workload-aware cluster scaling logic, maintaining event integrations, or managing runtimes.
+291.	Amazon SQS do you know what is max size of SQS message?
+Amazon simple queue service has 2 GB size, it was 256 KB.
+292.	if create IAM user what kind of permission does that user have by default?
+Users are created without any permissions unless you attach policy during creation of user.
+293.	You been tasked by auditing the security of your VPC and part of that process you need start analyzing what traffic can and from EC2 instance. What 2 part of VPC you need to check?
+Security groups, Inbound and outbound rules.
+294.	I’m looking at VPC flow logs and now I see were rejecting anything from outside port 8080. Where do I go to change the port?
+VPC Flow Logs is a feature that enables you to capture information about the IP traffic going to and from network interfaces in your VPC. 
+You go to security groups to edit rules and change ports. 
+295.	How does ansible manage its client nodes?
+It manages its nodes over ssh using push mechanism to execute tasks. 
+296.	How would you install Ansible on a machine?
+Yum -y install ansible
+297.	How do install ansible client?
+Ansible clients do not need ansible because ansible is agentless tool
+298.	Why do we use SSH-Keys and password less entry if we have clients installed?
+To be able to push the configurations to clients over ssh
+299.	In Jenkins what is a pipeline? How does it work?
+
+300.	What difference between a pipeline and a simple job?
+
+
+301.	What are the two ways to define a pipeline script in Jenkins.
+302.	What is master in Jenkins?
+303.	How to check Memory stats and CPU stats?
+Vmstat , top, iostat for cpu
+304.	How to create partition from the raw disk?
+Fdisk /path/to/disk
+305.	Where the kernel modules are located?
+Kernel modules: extra packages that are installed with kernel to manage hardwares. You can install modules based on your need. 
+Modules are Located in /usr/lib/modules
+306.	What is umask?
+Default set of permissions that are assigned to files and directories. 
+
+307.	How to set the umask permanently for a user?
+Set the value in .bashrc and .bash_profile 
+
+308.	What are the default ports used for SMTP, DNS, FTP, DHCP, SSH and squid?
+25,53,21,(67,68),22,3128
+
+309.	How to check default route and routing table?
+Route -n, ip route, netstat -rn
+
+310.	How to check which ports are listening in my Linux Server?
+Netstat -tunapl | grep “port”
+
+311.	How to add & change the Kernel parameters?
+You can edit the kernel parameter value in /etc/sysctl.conf or create a file under sysctl -w >>/etc/sysctl.d/<file> 
+
+312.	What is load average in Linux?
+Is equal to the average number of processes that are in the runnable or uninterruptable state. 
+
+313.	What is permission of /tmp.
+1777
+314.	What does sticky bit for groups do?
+Sticky bit for files and directories prevent accidental deletion of files and dris
+Sitguid means that the files and dirs created under that setgid will have the same group id.
+
+315.	How do you schedule a patch on RedHat satellite?
+We only schedule patches on ansible tower. 
+
+316.	You’ve 5 TB physical and you’ve to decommission it. What steps you’ll take on server that you’ve to decommission and how would you ensure that team gets the same storage on a new server?
+Take a backup first. Submit a Change request, backup team will perform backup. Unmount it and ask the storage team to attach a 5TB disk to the new server. Transfer the data. 
+
+317.	System had some issues last night; how would you troubleshoot it? How would you determine what caused the trouble last night?
+Sar -f /var/log/sa/<file-number>
+
+318.	How would you take snapshot on VMware?
+Sign into vmware , go to vm, action , then press on snapshot 
+
+319.	If after patch server wont boot from the new kernel, how can you revert to old kernel?
+Reboot, in the grub menu, chose the older kernel. 
+
+320.	How do you find out what process is holding up a service port on a server?
+lsof -i :port number 
+321.	How to find how many times Robert is in file?
+Grep -c Robert /etc/passwd
+322.	How to find Files created last ten days in current directory and remove them.
+You canot find the only created files in the last ten days, only options are change and modify.
+Find -type f -ctime -10 -exec rm -rf {} \;  is to delete all modified and created files in the last 10 days.
+323.	Server crashed what would you do?
+Depends on where you are able to get back into. You can try brining it up, if you are able to log back in, then review /var/crash/vmcore file that has been created with the help of kdump utility. You can anylize that file and if you can’t figure out what’s the issue, then escalate the ticket to a level 4 system engineer or senior sys admins. 
+324.	What init level would you go into if your sever crashed?
+Go to rescue mode 
+325.	Grep command flags
+Grep -i <case sensitivity>
+Grep -c < for count > 
+	Grep -v < for execluding a string> 
+326.	What type of work have you done with tcpdump, what was the issue and how did you resolve it?
+Tcpdump is a command line utility that allows you to capture and anylize network traffic coming in and out of your network. I’ve gathered some traffic reports using tcpdump -i <nic> send those reports to network teams. 
+327.	Why you need ssh-key based entry?
+		For better security. For any automation purposes. 	
+328.	Difference between raw and shell module
+Raw module is used to push configuration on managed nodes that don’t have python installed. It does not check for exit status.
+Shell module : allows you to run shell commands on managed nodes. 
+329.	How do you build physical server? Explain build process?
+Get the system design package, it has all the information regarding the system and the teams involved with it. once it’s your turn to prevision, use redhat satellite, log in, go to host, start building profile, follow the steps. Submit it. click on build button and generate an image, download the image, prevision the server. 
+330.	How do you build virtual server?
+The redhat satellite method mentioned above
+2nd method is via template in vcenter. 
+331.	How do you scan Logical Unit Number (LUN)?
+Lsblk
+Echo “- - -“ > /sys/class/scsi_host/host0/scan
+332.	How to check ansible version?
+Ansible --version
+333.	How you determine whether your system is virtual or physical?
+Hostnamectl 
+Dmidecode | grep Product
+Lshw | grep -i product
+334.	What is the difference S3 and EC2?
+S3 is simple storage service and it’s an object storage bucket while ec2 is elastic cloud compute. An aws server.
+335.	What are limitations (size) of S3 bucket?
+S3 bucket can have 100 buckets per user. And 5TB files limit per object however you can have unlimited space in each bucket. 
+336.	How do you determine hardware failure (memory and disk failure)?
+Smartctl -a > path to hard drive. 
+Systemctl status 
+Cat /var/log/messages
+Memtest utility to test for memory health. Also cat /var/log/messages for errors regarding hardware failure
+337.	System is slow, how would you troubleshoot it?
+Just like any other slow system 
+338.	What port is by default open when you configure VPC?
+22 
+339.	How many IPs AWS keep for itself?
+Allah only knows
+340.	What are types of EC2 instance?
+Nano,micro,small,medium,large, xl, xxl, sky is the limit.
+341.	You’re trying to patch a server but port 443 is not open, how would resolve this issue
+443 has nothing to do with patching. Application team deals with ssl certification.
+342.	How would verify the status of bond interface, whether is Round Robin or Active Backup?
+Cat ifcfg-bond0
+Cat /proc/net/bonding/bond0
+If it’s on rhel 7 using team then type  teamdctl team0 state 
+343.	What are the types of source control management systems(scm)?
+source control management (SCM) refers to tools that help you keep track of your code with a complete history of changes. We have only worked with git.
+344.	What are the different branches of source control?
+We are not sure. 
+345.	What is docker?
+Docker is a platform that offers isolated environments to applications and their dependencies. 
+346.	Are you hosting application in containers?
+Yes, we hosts httpd in a container. 
+347.	Difference between Docker Image and Docker Container
+Docker image is the template that contains everything the application need to run.
+Container : once the image gets pulled from the registry and gets run, it becomes a container.
+348.	Experience with docker clustering
+None. 
+349.	When you are building containers, where do you store the docker file.
+
+350.	What is a docker file?
+
+
+351.	What task have you automated with the help of ansible
+Deployed applications, automated patching, service management.
+352.	What kind of entities you use in ansible?
+Add-hoc commands, playbooks, roles.
+353.	Modules for ansible, and where to find them
+A piece of software that can be used in the command line with add-hoc command, or in a playbook.
+Ansible-doc -F shows modules names and their paths. 
+354.	Do you have tasks in playbooks??
+Yes . 
+355.	Have you configured roles in ansible?
+Yes, most definitely. Using ansible-galaxy init <role> 
+356.	Where do define variables in ansible?
+Can be defined in a separate file or within the playbook.
+Also in /etc/ansible/ansible.cfg 
+however, in roles, they’re defined in the vars file. 
+357.	What have you automated in python?
+Not much exposure to python. 
+358.	Have you worked on a python script?
+Never. 
+359.	What you did on Linux servers
+360.	Provisioned, patched, dealt with users, files, directories permissions, managed services, storage management. Tell me about your role with Linux
+System admin, Provisioned, patched, dealt with users, files, directories permissions, managed services, storage management. 
+361.	How do you troubleshoot Linux servers?
+Depending on the error, go further based on the output of those commands
+362.	How do you secure Linux server
+Remove unnecessary packages, tweek sshd with custom port number, disable root log in. disable password authentication. Always update the servers. 
+363.	What type of DNS you worked on, is that online or something else like Linux base bind?
+We had a bind in our environment, we had a networking team for that. Deamon is named. Configuration file is /etc/named.conf. 
+364.	When u configure the DNS, or update DNS but it doesn’t work how you troubleshoot?
+I have never configured a dns server, however, I’ve reviewed client side /etc/resolv.conf file.
+365.	Can you name 3 or 4 DNS record
+AOS,ptr,mx,a,aaa.
+366.	What’s MX
+Mail exchange record, responsible for accepting mail for a domain system. 
+367.	What is difference between PTR and A record
+Ptr record enable reverse lookup for ip addresses to hostnames and A record maps hostname to ipv4 addresses. 
+368.	How you work on TCP dump how you check the packets on a specific subnet network?
+Tcpdump -i <interface card> 
+369.	How many IP addresses I have in classC?
+Right above 2 million ip addresses. 
+370.	How many IP address I have in class B
+16 thousands 
+371.	How do you patch the server on Redhat Satellite?
+
+372.	How to patch the server Manually?
+Ssh server.hostname yum update -y
+373.	How do you extend LVM if there is no space?
+Attach new hard drive, pvcreate, vgextend, lvextend. 
+374.	A client is asking server is not responding. He can't ssh, what you will do to fix it?
+Ping server. If not online, take console, troubleshoot network, then ssh. 
+375.	How to reset the root password?
+Passwd <root> or if password is lost, then rd.break
+376.	In Redhat Satellite if you want to roll back a patch, how will you that?
+We don’t do patching through redhat satellite. We use ansible playbooks or add-hoc commands
+377.	What is IPA?
+FreeIPA is a free and open-source identity management tool, it is the upstream project for Red Hat identity manager. We had active directory in our environment. 
+378.	Which VM Tool you have used?
+Vmware Esxi, vspher, vcenter. 
+379.	How to check a port is listening or not?
+Netstat -tunapl | grep port
+
+
+380.	How do you plum or unplum an IP? What command is used to bring the IP up or down?
+When run, "unplumb" detaches the IP address from that interface. Plumb is automatically done when you add the IP address. While plumb is not explicitly used in day-to-day operations, unplumb is used to remove the IP address from the interface.
+
+381.	How to check default route to the server?
+Route -n, ip route, netstat -rn
+382.	we need to upgrade from RHEL 6 to RHEL 7 on Redhat Satellite how you will do that?
+We use manual upgrade 
+Redhat-upgrade-tool
+383.	What is volume stocking?
+
+
+384.	which storage have you worked on?
+NAS <network area storage> , SAN <storage area network> , DAS <direct attach storage>. 
+385.	How to create aggregate on NETAPP?
+
+
+
+

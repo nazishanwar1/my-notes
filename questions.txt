@@ -1,0 +1,9 @@
+======= Questions =======
+ 
+  ==== NFS ====
+1. Is it necessary to share a server with jumpserver? 
+2. Should we install nfs and nfs service both?
+3. If we type a command "firewall-cmd --list- " and press Tab what will it show?
+4. Same above question for commamnd add?
+5. Should we reload every port and service?
+6. When and why we add disk?

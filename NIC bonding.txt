@@ -1,0 +1,41 @@
+  
+====== NIC bonding ======
+
+
+1.active backup      2.load balancer  
+
+------ add new card -------
+
+> oracle virtual box
+> network
+> adapter2
+> enable and bridge adapter
+
+> nmcli device status
+> ifconfig                                                            ( to check cards)
+> cd /etc/sysconfig/network-scripts/ 
+> uuidgen enp0s8                                                      ( to generate UUID of card)
+> cp ifcfg-enp0s3 ifcfg-enp0s8                                        ( copy the file of first card)
+> vim ifcfg-enp0s8                                                    ( change here name, device and UUID)
+> cd
+> nmcli								      (network manager command line interface: to check connected cards )
+> nmcli connection add type team con-name teamdmz ifname teamdmz ipv4.addresses 192.168.100.103/8 ipv4.gateway 192.168.100.1
+ipv4.dns 192.168.100.1 ipv4.method manual autoconnect yes config '{"runner": {"name": "roundrobin"}}' 
+ ( to add connection first give type, team connection name=teamdmz interface-name then method is manual )
+> man teamd.conf (on another vm then /EXA copy roundrobin full line )
+> nmcli connection show                                               ( to show the card connections)
+> nmcli connection add type team-slave ifname enp0s3 master teamdmz   ( add the slave connections means add card)
+> nmcli connection add type team-slave ifname enp0s8 master teamdmz
+> nmcli connection show
+> nmcli connection up team-slave-enp0s3
+> nmcli connection up team-slave-enp0s8
+> nmcli connection up teamdmz
+> teamdctl teamdmz state                                              ( it will show network connections and runner)
+
+
+* round Robin is load balancer
+* master used to add a member in team
+* autoconnect means if one card drop down then second card activate automatically 
+
+
+https://www.youtube.com/watch?v=1S5uunc6pDY

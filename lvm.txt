@@ -1,0 +1,32 @@
+ 
+
+
+====== LVM ======
+
+> lsblk
+> pvcreate /dev/sda                                       (a is variable)
+> vgcreate vg_project21 /dev/sda                          ( project21 is vg name which is changeable)
+> lvcreate -n lv_project21 -L +1G vg_project21            (-n to give name and -L is to give space)
+> mkfs.xfs /dev/vg_project21/lv_project21
+> mkdir /project-21                                       (make directory before or after fstab but essentially before mount )
+> cp /etc/fstab /etc/fstab.bkp
+> vim /etc/fstab
+> press i to insert
+  (/dev/vg_project21/lv_project21 /project-21  xfs  default 0 0   :wq)
+> mount /project-21
+> df -h
+> df -h directoryname   
+
+                                  (to check specific directory)
+ ----- (for vg extend) ----- 
+  add new disk
+> pvcreate /dev/sda
+> vgextend vg_project21 /dev/sda                          (sda is disk name where a is variable)
+> lvextend -L +1G /dev/vg_project21/lv_project21 -r       (extend according to desirable space)
+> lvextend -l +100%FREE /dev/vg_project21/lv_project21 -r ( to make disk 100% or fully free)
+> vgs    (to check volume groups)
+> lvs    (to check logical volumes)
+ 
+do df -h filesystem
+copy path (/dev/mapper/centos-var) for lvextend
+

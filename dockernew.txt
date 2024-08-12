@@ -1,0 +1,126 @@
+yum -y remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
+
+yum install -y yum-utils 
+yum -y install epel-release
+yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+systemctl enable docker --now
+systemctl status docker
+
+
+now go to docker hub search image and copy command of that image
+copy
+go to mobaxterm 
+docker pull httpd
+
+docker images
+
+docker pull mysql
+
+firewall-cmd --list-all
+
+setenforce 0
+firewall-cmd --permanent --add-port=8080/tcp
+firewall-cmd --permanent --add-port=8080/udp
+firewall-cmd -c
+firewall-cmd --reload
+
+go to google
+192.168.1.101:8080
+
+> docker run -dit -p 8080:80 --name webserver httpd  
+> docker run -dit -p 8080:80 --name dmzweb --restart always httpd
+> docker images
+
+> docker ps
+
+go to browser 
+192.168.1.101:8080 
+
+if it works great 
+go to mobexterm
+
+==================debugging a container===================
+docker exec -it <container-id> /bin/bash   <it means interactive terminal>
+now we are inside container
+
+> ls -l
+> cd htdocs
+> cat index.html
+> echo 'any text' >> index.html
+
+
+exit
+
+now check any docker process is working 
+docker ps 
+
+docker stop id
+
+docker images
+
+docker system prune -a	(everything is removed now)
+
+
+
+
+
+
+take duplicate
+
+make a page
+
+mkdir /tmp/webpg
+cd /tmp/webpg
+vim index.html
+welcome to linux docker
+adding line 2
+cat /tmp/webpg
+now go back to orignal server and run this command
+docker run -dit -p 8080:80 --name dmzweb -v /tmp/webpg:/usr/local/apache/htdocs --restart always httpd
+
+FYI: df -h > /tmp/before-patch05142025
+docker ps > /tmp/before-patch-docker-05142024 (to check process list)
+troubleshooting
+
+df -h 
+
+
+------------------------------------------------------------
+we can see all the mount points this means filling other team servers 
+ df -h /var
+seq 99999999 >> /var/log/big-file
+seq 9999999 >> /var/log/big-file1
+seq 99999998 >> /var/log/big-file2
+ now /var is 100%
+df -h check /var
+
+cd /var/log
+ll
+
+ls -lthSr | tail
+ls -ld /var
+df -h
+mv big-file /tmp
+df -h
+rm -f <filename>
+yum clean all
+
+ln -s /tmp/big-file big-file
+
+now second solution
+
+df -h /var
+gzip big-file2
+ll big-file2.gz
+df -h
+
+
+dont gzip live logs it means file created on same present date
+
+disk usage du
+du -sh + | sort -hr | grep G
+
+disk free df 
+ls -lthSr | tail

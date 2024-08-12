@@ -1,0 +1,14 @@
+
+------ Installing mysql database ------
+
+ yum -y update
+ yum -y install wget
+ yum -y localinstall https://dev.mysql.com/get/mysql80-community-release-el7-11.noarch.rpm
+ yum --enablerepo=mysql80-community install mysql-community-server
+ vim /etc.repos.d/mysql-community.repo
+ vim /etc/yum.repos.d/mysql-community.repo
+ yum -y install mysql-server
+ systemctl start mysqld
+ grep 'temporary password' /var/log/mysqld.log
+ mysql -u root -p
+ systemctl status mysqld

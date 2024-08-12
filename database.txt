@@ -1,0 +1,16 @@
+1:docker pull mysql
+2:docker images (to check mysql added or not)
+3: mkdir /tmp/dmzbucket
+4: ls -ld /tmp/dmzbucket
+5: docker run -dit -p 3306:3306 --name dmzdb --volume /tmp/dmzbucket --restart always -e MYSQL_ROOT_PASSWORD=hello123 mysql:latest
+6: docker ps
+7: docker exec -it dmzdb mysql -uroot -phello123
+8: mysql> show databasses;
+9: mysql> CREATE DATABASE dmzDB;
+10: mysql> use dmzDB;
+11: mysql> CREATE TABLE Personal_info (PersonID int, LastName varchar(255), Adress varchar(255), City varchar(255));
+mysql> select * from personal_info;
+mysql> INSERT INTO Personal_info (PersonID, LastName, Adress, City)VALUES (1003, 'John', 'Michael', '99-12 ohio Blvd', 'Brooklyin');
+mysql> select * from Personal_info;
+12: exit
+13: docker ps

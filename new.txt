@@ -1,0 +1,7 @@
+Strong expertise in Linux system engineering and shell scripting.
+Extensive experience with AWS services and infrastructure management.
+Proficiency in Ansible for automation and configuration management.
+Deep knowledge of Terraform for infrastructure as code.
+Comprehensive understanding of CI/CD pipelines and DevOps practices.
+Problem-solving acumen and proactive approach.
+Experience in a mid to senior-level engineering role, with a focus on production environments.

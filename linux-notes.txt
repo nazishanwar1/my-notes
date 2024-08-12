@@ -1,0 +1,335 @@
+                                                                                                                  
+
+
+====== server build ======
+> increase and decrease cpu  (task)
+> su -
+  configuration path= vim /etc/sysconfig/network-scripts/ifcfg-enp0S3
+> i                (move into insert mode)
+  BOOTPROTO=static
+  ONBOOT=yes
+  IPADDR=10.0.0.1  (vm name after last 1 as 101) (192.168.100.101)
+  NETMASK=255.255.255.0
+  GATEWAY=10.0.0.1 (192.168.100.1)
+  DNS=10.0.0.1
+  DNS1=8.8.8.8
+press Esc 
+> :wq              (save-quit)
+> systemctl restart network
+> :q!              (shutdown-forcefully)
+> ping 192.168.100.1
+> ping 192.168.100.101
+> ping google.com
+
+
+
+ $ means working as a user
+ # means working as root
+ / everything is under slash
+ ~ telda 
+
+====== work around ======
+
+> uptime       (to check how long server is running)
+> man          (to check mannual of any command)
+> man -k any-word        (it will show all commands related to that word)
+> ping         (to connect or contact with server)
+> ping -c5     (connect to server and control to given digit as 5)
+> shutdown now (to shutdown)
+> init 0       (to shutdown)
+> hostname -I  (to check Ipaddress)
+> hostname     (to check hostname)
+> history      (to check history)
+> reboot       (to start up again after closing or shutting down)
+> shutdown -r  (to restart server)
+> init 6       (to restart)
+> ls -a        (list-all/list directory contents)
+> ls -x chap0[123] (to list 123 files starting with 0)
+> mkdir        (make directories)
+> rmdir        (remove an empty directory)
+> rm -rf       (remove non-empty directory/file)
+> ls -l=ll     (long list)
+> cd           (go to user home directory)
+> cd ..        (go one directory back)
+> cd -         (swap between two directories)
+> touch        (create a file)
+> touch filename {1..9} (make more than one file)
+> top          (to show the active Linux processes)
+> df -h        (disk free-human readable/displays the amount of disk space available on the filesystem)
+> vim          (read a file)
+> cat          (shows text exist in a file)
+> rm           (remove a file)
+> echo         (display a line of text)
+> echo $?      (display astring provided by the user/if 0 then previous command is running successfully)
+> echo “ any line” >>   (append/adding)
+> echo “any line” >     (delete overwrite)
+> chown        (to change owner of file)
+> chgrp        (to change group oa file)
+> chown -R owner:group  (to change owner and group name of file at a time)
+> chmod        (to change permissions of owner u=r+w+x, group g=r+w others o=r)(r=read w=write x=execution)
+> chmod 421 filename    (r=4 w=2 x=1 to change permissions numerically)
+> umask 0066   (who control default permissions)
+ (by default its value is 0002 but we can change it permanently in .bashrc file in user home directory)
+> alias        (to make shortcut of a path e.g., alias config='vim /etc/sysconfig/network-scripts/ifcfg-enp0s3' to make it permanent we have to write it in .bashrc file in user's home directory)
+> stat file-name        (to check detailed information of a file)
+> users        (to check users)
+> ifconfig     (to check NIC name)
+> exit         (to logout)
+> jobs         (to check processes at background)
+> history | grep name (to check history of specific one  )
+> su -         (switch to root user) 
+> ln -s        (to create a soft link)
+> cd -         (move to home directory and show user=/root)
+> sudo         (use when switch as another user)
+> grep         (to filter a search)
+> !history-no. (to run command from history e.g ls at 78 in history then run !78 it will be executed)
+> systemctl    (to check system status/Control the system and service manager)
+> smem	       (provide memory info taken by each process)
+> nmap <ip-adr>	(to check server login latency (dalay) time)
+> du -sh * | grep G 	(shows big files)
+
+
+
+> cat /proc/cpuinfo       (check cpu info)
+> cat /var/log/messages  (anything related to disk)
+> grep Memtotal /proc/meminfo (check memory)
+> md5sum (to check either execute file has been copied or not)
+> cut -d: -f1 /etc/passwd (use to list all users)
+> cat /proc/version       (show linux version, red hat version)
+
+> sar -r -f /var/log/sa/sa14	(to check server detail)
+> sar -r -f /var/log/sa/sa14 -s <start-time> -e <end-time>
+
+
+====== ssh ======
+
+> ssh-keygen   (to generate key)
+ (press enter,yes,enter 3 time)
+> ssh-copy-id ipaddress (to copy ip address of that vm to which we want to connect)
+ (enter,yes,enter,give password)
+> vim /etc/hosts        (path of hosts)
+ (here write ipaddress and vm name)
+> ssh vm-name  (to get access into the desired vm)
+ (yes)
+> exit         (to exit from the connected server)
+> cd .ssh      (to check whether server have ssh key or not )
+> ssh -V       (to check ssh server version)
+
+
+------ encrypt a password ------
+> openssl passwd -1
+then type password
+
+
+====== user management ======
+
+> useradd username        (to add a user)
+> passwd  username        (to change user password)
+ (it will require password again then write original password e.g. nazish123)
+> usermod -c (use to assign name for the user)
+> su  - username          (switch to that user)   
+> w                       (to check user detail)
+> id                      (to check user id/wether user exist or not)
+
+ * a group is a logical unit that combines users for a common purpose
+> groupadd                (to create a group and group created by using this command are secondary groups)
+> usermod -a -G grp usr   (to add user in supplementory group, a=append G=group)
+> groups                  (to check group and grp-member, first login as that user)
+> groupdel grp-name       (to delete a group)
+> chage -l usr-name       (to check password aging policies for a user)
+> chage -m 2 -M 30 -W 2 -I 5 usr-name (to change password aging policies m=min. days to change passwd M=max. days to expire W=warning I=inactive)
+> chage -E yy-mm-dd usr-name (to change account expire date)
+> userdel usr-name        (to delete a user, it will just delete user not its home directory)
+> userdel -r usr-name     (remove user as well as user home directory)
+> cat /var/log/secure     (to check user related information) 
+
+------ check user history ------
+
+> cd /home
+> cd nazish
+> ll -a 
+> cat .bash_history
+
+
+
+------ adduser manually ------
+
+
+> vim /etc/passwd          (user configuration file to add new user)
+> vim /etc/group           (group configuration file to add group)  
+> cd /home                 (go to home directory)
+> mkdir anwar              (making a directory with user name)
+> chown -R anwar:anwar anwar  (changing user and group collectively)
+> chmod 700 anwar          (changing permissions)
+> cd anwar                 (go to directory)
+> cp -v /etc/skel/.bash* . (copy path of files of current directory)
+> openssl passwd -1	   (to generate encrypted password)
+> vim /etc/shadow	   (paste here encryoted password)
+> su anwar                 (switch to that user)
+> exit                     (exit from that user)
+ 
+
+------ permanent alias ------
+
+.bashrc and .bash_profile are the files that reads when a user logged in whenever we make changes in these files then we have
+to exit and logged in again to that user or we can run a command source. Also we can change umask by adding in .bashrc.
+You mask control default permissions. Its value is subtracted from maximum permission that are 666.
+ 
+> cd /home/userdir-name    (go to user home directory)
+> ll -a
+> vim .bashrc              (this is a file that read when a user logged in)
+> alias cls=clear          (inside the file press shift G then o and write alias then save and quit)
+> umask 0022               (666-022=644 means owner=rw, grp=r others=r permissions)
+> source .bashrc           (it will read the file and make changes)
+
+
+====== yum ======
+
+> yum     (to install/update packages/application)
+> yum -y install package name 
+> yum -y update kernel
+> rpm     (RPM Package Manager/to check package)
+> rpm -qa epel-release
+> rpm -qa kernel
+> yum whatprovides <command>	(to check which pkg is required for that command)
+> yum clean all 		(clear big file)
+
+
+
+------ delete a pkg ------
+
+> yum history              (show all installed pkgs)
+> yum history info 8       (to check pkgs in specific transection id)
+> yum history undo 8       (delete that pkg)
+
+
+
+
+====== Link ======
+
+ It is use to create a link for a long path of a file
+ All changes save in orignal file not in link
+
+> mkdir link-practice 
+> cd link-practice
+> mkdir first
+> cd first
+> mkdir second
+> cd second
+> touch test-file
+> cd
+> ln -s link-practice/first/second/test-file file.txt
+ (ln=link s=soft path of file and then link name)
+> ll               (link name turns blue)
+> cat link-practice/first/second/test-file
+ (write anything in file then save and quit)
+> cat file.txt
+ (here we can see the same content that exist in test-file)
+ There are 2 ways that can break a link, it turns red 
+ 1.by changing file path 
+ 2.by changing name of file
+> unlink link-name (to delete link)
+> rm -f link-name  (to remove link)  
+
+
+====== Tar ======
+ Tar= tape archive
+
+> seq 999999 > file-1
+> seq 999999 > file-2
+> seq 999999 > file-3
+ (making files in seq=sequence where 999999 showing file size)
+> tar -cvf name.tar files-name     (c=create v=verbose f=file)
+ (tar -cvf my-backup.tar file-1 file-2 file-3) 
+> du -sh file-name                 (to check one file size )
+> du -sh file-*                    (to check all files size)
+> tar -cvzf name.tar files-name    (z= zip)
+ (it will compress files/decrease files size and zip)
+> cp name.tar directory-name
+> cd directory-name
+> tar -xvf tarfile-name            (x=extract)(it will untar tar ball in the same directory to untar in another directory use -C then path)
+ (use all same flags with x as of c)
+> gzip file-name  (compress a file)
+
+
+====== scp ======
+
+ scp=secure copy
+> seq 79999999 > big-data
+> scp big-data root@192.168.100.102:/project21         (it will copy each and everything of file from start)
+ (file-name root@server-ip-adress where file to copy:direcory-name)
+> rsync big-data root@192.168.100.102:/project21       (it will copy only changes in file)
+> time scp big-data root@192.168.100.104:/project21/   (also show time taken by copy)
+> time rsync big-data root@192.168.100.104:/project21/
+
+
+====== fdisk ======
+it is an early version of LVM to make disk partitions 
+
+
+first of all add a disk 
+> fdisk -l (to list all disks and partitions)
+> fdisk /dev/sdb  (sdb is disk name ane this step use to format disk)
+> m (for help)
+> l (list)
+> 8e (linux LVM)
+> n (new partition)
+> p (primary)
+ (a drive has 4 partitions 1 for primary 3 for extended)
+> w (to read table and exit)
+> mkfs.xfs /dev/sdb1 (make file system for 1st partition)
+> mkdir /first-mount
+> vim /etc/fstab (to enter disk partition in fstab)
+> mount /first-mount
+> mount -t auto /first-mount 
+ (if do not mount)
+
+
+
+====== /var ======
+
+troubleshooting
+
+how to make /var spaceful
+
+> du -sh * | grep G
+> yum clean all
+> df -h /var
+
+we can see all the mount points this means filling other team servers 
+> seq 99999999 >> /var/log/big-file
+> seq 9999999 >> /var/log/big-file1
+> seq 99999998 >> /var/log/big-file2
+now /var is 100%
+> df -h check /var
+> cd /var/log
+> ls -lthSr | tail
+> ls -ld /var
+> df -h
+> mv big-file /tmp
+> df -h
+> rm -f <filename>
+> yum clean all
+
+> ln -s /tmp/big-file big-file
+
+now second solution
+
+> df -h /var
+> gzip big-file2
+> ll big-file2.gz
+> df -h
+
+
+dont gzip live logs it means file created on same present date
+
+disk usage du
+> du -sh + | sort -hr | grep G
+
+disk free df 
+>ls -lthSr | tail
+
+
+
+
+

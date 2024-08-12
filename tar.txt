@@ -1,0 +1,19 @@
+
+====== Tar ======
+ Tar= tape archive
+
+> seq 999999 > file-1
+> seq 999999 > file-2
+> seq 999999 > file-3
+ (making files in seq=sequence where 999999 showing file size)
+> tar -cvf name.tar files-name     (c=create v=verbose f=file)
+ (tar -cvf my-backup.tar file-1 file-2 file-3) 
+> du -sh file-name                 (to check one file size )
+> du -sh file-*                    (to check all files size)
+> tar -cvzf name.tar files-name    (z= zip)
+ (it will compress files/decrease files size and zip)
+> cp name.tar directory-name
+> cd directory-name
+> tar -xvf tarfile-name            (x=extract)(it will untar tar ball in the same directory to untar in another directory use -C then path)
+ (use all same flags with x as of c)
+> gzip file-name  (compress a file)

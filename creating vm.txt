@@ -1,0 +1,57 @@
+====== server build ======
+ At Oracle Virtual Box
+Click on New option
+> name: vm101
+> type: Linux
+> version: Red Hat(64bit)
+> Memory size: remains same as 1024
+> Hard Disk: create a virtual hard disk now
+> Hard disk file type: VHD (Virtual Hard Disk)
+> Storage on physical hard disk: Dynamically allocated
+> File location and size: desired
+ Now click on Settings option
+> click on system, select "pointing device: USB multi-touch tablet"
+> click on network, "Attached to: Bridge Adapter"
+
+> Now start the machine, select ISO-image and start
+> do up arrow select "Install Centos 7" press Enter
+> select language and continue
+> software selection: GNOME Desktop
+> Installation destination: check I will configure partitioning. Done
+  clicl on + 
+             Mount Point: /boot
+	     Desired Capacity: 500mb	    
+clicl on + 
+             Mount Point: swap
+	     Desired Capacity: 500mb
+clicl on + 
+             Mount Point: /var
+	     Desired Capacity: 2G
+clicl on + 
+             Mount Point: /
+	     Desired Capacity: leave empty (so that all remaining space occupied by /)
+
+> Now accept changes and begin installattion
+> Set Root password and create a user of your name
+> Reboot
+> accept Licence agreement
+
+ Login and open terminal
+> su -
+  configuration path= vim /etc/sysconfig/network-scripts/ifcfg-enp0S3
+> i                (switch to insert mode)
+  BOOTPROTO=static
+  ONBOOT=yes
+  IPADDR=192.168.100.101 (vm name at the end 101) 
+  NETMASK=255.255.255.0
+  GATEWAY=192.168.100.1
+  DNS=192.168.100.1
+  DNS1=8.8.8.8
+press Esc 
+> :wq              (save-quit)
+> systemctl restart network
+> ping 192.168.100.1
+> ping 192.168.100.101
+> ping google.com
+
+> :q!              (shutdown-forcefully)

@@ -1,0 +1,106 @@
+
+
+====== vim editor ======
+
+  Three modes
+1. escape mode in which all commands run
+2. insert mode  use to edit file
+3. visual mode
+4. replace mode
+
+
+> h       (move left)
+> l       (move right)
+> j       (move down)
+> k       (move up)
+> H       (top line on screen)
+> M       (middle line on screen)
+> L       (bottom line on screen)
+> yy      (copy a line)
+> p       (paste a line)
+> dd      (delete a line)
+> cc      (only delete text of a line and switch to insert mode)
+> w       (begining of next word)
+> e       (end of current word)
+> b       (begining of current word)
+> gg      (first line/top of file)
+> G       (last line/end of file)
+> 0       (begining of current line)
+> $       (end of current line)
+> r       (replace a letter; first press r then desired letter)
+> x       (delete current letter )
+> X       (delete a letter before cursor)
+> R       (switch to replace mode)
+> s       (delete a letter and switch to insert mode)
+> u       (undo a line)
+
+
+
+> cd /root/Desktop
+> vim newcode.py    (or you can write any other thing in the file)
+ {
+   num = 7
+   # uncomment to take input from the user
+   #num = int(input("Enter a number: "))
+  
+   factorial = 1
+   # check if the number is negative, positive or zero
+   if num < 0:
+     print("sorry, factorial does not exit for negative numbers")
+   elif num == 0:
+     print("the factorial of 0 is 1")
+  else:
+     for i in range(1,num + 1):
+         factorial = factorial*i
+ 
+        print("The factorial of",num,"is ,factorial")
+                                                          }
+
+> cd
+> ls -a | grep .vim
+> vim .vimrc
+{
+  syntax on
+  set number
+  map <Down> <Nop>
+  map <up> <Nop>
+  map <left> <Nop>
+  map <right> <Nop>
+                         }
+> ls -a | grep .vim
+
+------ Output ------
+
+> vim newcode.py
+{
+  1 num = 7
+  2 # uncomment to take input from the user
+  3 #num = int(input("Enter a number: "))
+  4
+  5 factorial = 1
+  6 # check if the number is negative, positive or zero
+  7 if num < 0:
+  8   print("sorry, factorial does not exit for negative numbers")
+  9 elif num == 0:
+ 10    print("the factorial of 0 is 1")
+ 11 else:
+ 12    for i in range(1,num + 1):
+ 13        factorial = factorial*i
+ 14
+ 15       print("The factorial of",num,"is ,factorial")
+                                                         }
+ 
+> vim .vimrc
+ {
+  1 syntax on
+  2 set number
+  3 map <Down> <Nop>
+  4 map <up> <Nop>
+  5 map <left> <Nop>
+  6 map <right> <Nop>
+                         }
+
+  
+
+
+

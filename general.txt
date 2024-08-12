@@ -1,0 +1,34 @@
+
+
+use of & in linux
+
+The & symbol instructs commands to run in a background process and immediately returns to the command line for additional
+ commands.
+> jobs (to check sleep/background processes)
+
+> ll > filename.txt (it will create a new file and redirct the output to that newfile)
+> cat > filename.txt (it will create new file and add the content then press ctrl d to save and quit it can also overwrite the exixting file)
+> cat >> filename.txt (it will append the new line at bottom of the file)
+> ll < filename.txt (it will redirect the cat command/ show the content of file)
+
+standard input= std in= 0
+standard output= std out= 1
+standard error= std error= 2
+
+> lli 2> myerror ( it will create a new file and transfer the error into that file)
+> ll 1> input.txt
+   52  cat input.txt
+   53  lli 1> input.txt 2> myerror
+   54  cat myerror
+   55  ll >> mydir >2&1
+   56  ll >> mydir 2>&1
+   57  cat mydir
+   58  lli >> mydir 2>&1
+   59  cat mydir
+   60  ll testfile.txt | sort
+   61  ll testfile.txt | sort | tee redirected.txt
+   62  ll | sort | tee redirected.txt
+   63  ll
+   64  cat redirected.txt
+   65  cat testfile.txt
+ 

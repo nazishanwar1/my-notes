@@ -1,0 +1,28 @@
+---
+- name: ssh-key
+  hosts: all
+  tasks:
+    - name: Set authorized key taken from file
+      authorized_key:
+        user: root
+        state: present
+        key: "{{ lookup('file', '/root/.ssh/id_rsa.pub') }}"
+
+
+
+------ change ssh-port ------
+
+
+https://www.youtube.com/watch?v=H1gEpJ5mO_U
+
+vim /etc/ssh/sshd_config	(change port and remove #)
+firewall-cmd --permanent --add-port=222/tcp
+firewall-cmd --reload
+firewall-cmd --list-all
+semanage port -a -t ssh_port_t -p tcp 222
+semanage port -l | grep -w 222
+systemctl status sshd
+systemctl restart sshd
+systemctl status sshd
+
+

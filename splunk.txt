@@ -1,0 +1,24 @@
+
+
+=============== Splunk ===============
+
+> https://www.splunk.com/en_us/download/splunk-enterprise/thank-you-enterprise.html
+> wget -O splunk-9.3.0-51ccf43db5bd.x86_64.rpm "https://download.splunk.com/products/splunk/releases/9.3.0/linux/splunk-9.3.0-51ccf43db5bd.x86_64.rpm"
+> wget -O splunk-9.2.2-d76edf6f0a15-Linux-x86_64.tgz "https://download.splunk.com/products/splunk/releases/9.2.2/linux/splunk-9.2.2-d76edf6f0a15-Linux-x86_64.tgz"
+------------------------------------------------------
+
+
+> wget -O splunk-9.2.2-d76edf6f0a15-Linux-x86_64.tgz "https://download.splunk.com/products/splunk/releases/9.2.2/linux/splunk-9.2.2-d76edf6f0a15-Linux-x86_64.tgz"
+> ll
+> tar -xvzf splunk................. -C /opt
+> cd /opt
+> firewall-cmd --add-port=8000/tcp --permanent   and then reload
+> cd /splunk/bin
+> ./splunk start
+> administrator username: nazish
+> password: N@zish123
+> go to chrome check ip:8000 now give username and password
+
+> ./splunk stop    (to stop splunk)
+
+

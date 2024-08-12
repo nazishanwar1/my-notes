@@ -1,0 +1,126 @@
+
+https://www.youtube.com/watch?v=RWgW-CgdIk0
+
+============== Cloud Computing ===========
+cloud computing is the delivery of on-demand computing services over the internet on pay-as-you-go basis. Now you might think what does
+that mean, let me explain, instead of managing files on a local storage we can save them over intenet through cloud computing and access 
+them from the internet. As a mobile person i can access the storage from the internet anywhere because it's in the internet. it provides 
+flexible resources, faster innovation and best of all we just need to pay for what we use.
+
+------- types of cloud --------
+
+
+we can catogories it on two wide categories on being a deployment model and the other being service model;
+before to understand this concept let's go through an example, it'll be easy to understand;
+
+consider the different types of vehicles to commute from one place to another. for example if i wanna travel i can pick a bus which is 
+accessible to anyone I get in and I pay for the seat that I occupy and I pay for the time that I will be travelling in it and I'm done 
+cost is very less here are similar kind of thing happens in the public cloud I pay only for the source that I use and I pay for long I
+use if I use less I pay less if I use more I pay more for that month. 
+
+on the other hand private cloud is like buying your own car and using it for commuting purpose here I pay a huge amount up front and 
+it is all owned only by me I don't pay to it in an orderly fashion but completely and all up front the cost here is very huge.
+ 
+thirdly if I want the best of both types like the comfort  on car and still don't want to pay all front otherwise only to pay for the 
+time that I use the service I can rent a car similarly I can have it in a hybrid environment meaning if I already have dc's I can 
+integrated with the cloud and use both the dc's and that would become and hybrid environment.
+
+
+IAAS provides basic computing infra. based on pay-for-what you use model.providers are amazon web services,microsoft azure and google 
+compute engine. user, IT administrators
+
+PAAS provider gives you cloud platforms and runtime environments for developing, testing, and managing applicatioins. it allows 
+software developers to deploy applications without requiring all the related infrastructure. users, software devlopers.
+
+
+SAAS everything is amnaged by vendor and we just pay for the srvice, we don't have to maintain anything. users, end customers like us
+example emails send through Gmail, we do not have any concern to the code or system behind this process.
+
+
+regionis a physical location in the world and Regions are independent of each other and they are geographical distance from each other 
+as well. within a region we then have availability zones, availability zones are composed of one or more data centers and you can 
+essentially think of these as a cluster of data centers now there are lots of regions around the world. 
+
+AWS regions are connected via a high bandwidth fully redundant network that's the WS global network backbone now each region will 
+contain two or more availability zones so that means that you can deploy your resources across availability zones and you get lots of
+redundancy by doing that there's also something called a local zone. local zones extend regions closer to end users reeally that's for 
+reducing latency. latency is the delay over a network typically the farther you are from a a specific service the more latency there's 
+going to be across that network.
+
+The other regional part of AWS global infrastructure is regional edge caches and edge locations these are part of the cloud front 
+network. cloud front network is a content delivery network services CDN and essentially what we use this for are to get content closer 
+to our end users for better performance so for example we might cache video files or images in the edge locations that are close to our 
+users around the world and there are many ede locations and regional edge caches so that means the latency is lower and the users can
+download or watch those videos without having to go a long distance around the world to get them. so that's the cloudfront network and 
+of course again these numbers are subject to change.
+
+
+============== EC2 ============
+
+Amazon Elastic Compute Cloud (Amazon EC2) provides on-demand, scalable computing capacity in the Amazon Web Services (AWS) Cloud. 
+Using Amazon EC2 reduces hardware costs so you can develop and deploy applications faster. You can use Amazon EC2 to launch as many 
+or as few virtual servers as you need, configure security and networking, and manage storage. You can add capacity (scale up) to handle
+compute-heavy tasks, such as monthly or yearly processes, or spikes in website traffic. When usage decreases, you can reduce capacity 
+(scale down) again.
+
+
+Amazon Machine Images (AMIs)
+Preconfigured templates for the instances that package the components need for server (including the operating system and 
+additional software).
+
+
+
+============= EBS ==============
+
+EC2 instance storage volumes which are suitable for holding temporary data EBS volumes are highly 
+suitable for essentialsand long term data. EBS volumes are specific to availability zones and can
+only be attached to instances within the same availability zone.
+EBS volumes are independent of the EC2 instance they are attached to. The data in an EBS volume 
+will remain unchanged even if the instance is rebooted or terminated.
+Single EBS volume can only be attached to one EC2 instance at a time. However, one EC2 can have 
+more than one EBS volumes attached to it.
+EBS volumes are specific to availability zones and can only be attached to EC2 in the same 
+availability zone. In case AWS’ availability zone is to go down, access to the EBS volume 
+will be lost.
+
+
+
+====== Tyepes ======
+1.	SSD: This storage type is suitable for small chunks of data that requires fast I/Ops. 
+   SSDs can be used as root volumes for EC2 instances.
+2.	HDD: This storage type is suitable for Big Data chunks and slower processing. These volumes
+ cannot be used as root volumes for EC2. AWS claims that “These volumes provide expected throughput
+ 99.9% times of the year”
+
+
+
+
+
+Hard Disks for EC2 servers: EBS volumes can be used as hard drives to your EC2 servers. They are 
+independent of your EC2 servers and hence your data in these volumes is safe even if EC2 servers 
+fails/reboots/terminate.
+Hosting Large Applications: EBS provides an exceptionally low latency period amounting to a great 
+computing power of the architecture. It can be used to hold big enterprise application software and 
+data.
+Root Volumes for EC2: EBS types GP2 and IO1 can be used as the root volumes for your EC2 server.
+
+
+Infrastructure as a service (IaaS) is a type of cloud computing service that offers essential compute,
+storage, and networking resources on demand, on a pay-as-you-go basis
+
+
+
+Platform as a service (PaaS) is a complete development and deployment environment in the cloud, with resources 
+that enable you to deliver everything from simple cloud-based apps to sophisticated, cloud-enabled enterprise applications.
+
+
+
+Software as a service (SaaS) allows users to connect to and use cloud-based apps over the Internet. Common examples are email,
+calendaring, and office tools (such as Microsoft Office 365).
+
+
+
+
+
+
+

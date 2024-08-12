@@ -1,0 +1,15 @@
+
+====== CONFIGURATION FILES ======
+
+ /etc/passwd   (it contain all users information. 2 types of users humans and services)
+ /etc/group    (it contains user groups information and is modified when a group created)
+ /etc/shadow   (it contains passwords and does not have any kind of permission. if there is two exclaimation marks (!!) 
+   it means account is locked and can't be logged in. first encrypted password is of Redhat btw 1st to 2nd colon and 2nd
+   is password's aging policies have no. of days since 01 january 1970 then no.of days user change passwd next when passwd
+   expire and last no. of days of warning )
+ /etc/gshaodow (it contains user name)  
+ these 4 are the files modified when a user created
+ /etc/skel     (it contains specific messages or anything customize to the user)
+ when a new user created a new directory is created under /home/ with name of the user. It will automatically have all the
+ contents from /etc/skel/ directory copied into it.
+ when a user deleted then its home directory (containing some data) do not delete. 

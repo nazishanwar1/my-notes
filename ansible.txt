@@ -1,0 +1,119 @@
+ 
+
+====== ansible ======
+
+Ansible® is an open source IT automation tool that automates provisioning, configuration management,
+application deployment, orchestration, and many other manual IT processes. 
+
+> rpm -qa epel-release
+ (if epel-release is not installed then install it using yum epel-release is essential to start ansible)
+> yum -y install ansible                             
+> mkdir /all-yaml
+> vim server-list
+ (enter vm names/ip to connect with control node which is jumpserver) 
+> ssh-keygen
+> ssh-copy-id vm's ipaddress
+> vim /etc/hosts (enter ipaddress and vm name )
+
+
+------ if can't connect to for example vm103 ------
+ >vim /etc/hosts
+ >  vim /root/.ssh/known_hosts
+ > ssh vm103
+ >  ssh-copy-id vm103
+ > ssh vm103
+
+> vim /ansible/hosts 
+(after [dbservers] we can add a new groip for server list e.g [my-list] on next line vms)
+> ansible my-list -m module -a "attributes"
+(we can use this ad-hoc command in /root)
+
+------ Modules ------
+
+ modules are the drivers
+> ansible-doc module   (help to check documentation and attribute of module: to check example press /EXA and q to quit)
+> ping                 (to connect control node with managed nodes which are all other vms except jumpserver)
+> shell                (to run a command e.g uptime,reboot,shutdown,cmd)
+> file                 (to make/delete file/directory,change user-group & permmissions)
+> yum                  (istall and update/upgrade pkgs)
+> user                 (add/delete user)
+> service              (start/stop,enable,reload,restart a service)
+> firewalld            (add ports)
+> lineinfile           (add a line in file)
+> mount		       (to mount directory)
+
+
+> ansible all -i server-list -m ping
+> ansible all -i (inventory e.g server list) server-list -m (module e.g shell) shell -a (attributes must in quotes) "text"
+> ansible all -i server-list -m shell -a "uptime"
+> ansible all -i server-list -m file -a "path=/tmp/ansible-dir state=directory"
+> ansible all -i server-list -m file -a "path=/tmp/ansible-dir/file.txt state=touch"
+> ansible all -i server-list -m file -a "path=/tmp/ansible-dir/file1.txt state=touch"
+> ansible all -i server-list -m file -a "path=/tmp/ansible-dir/file1.txt owner=nazish group=nazish mode='0644'"
+> ansible all -i server-list -m file -a "path=/tmp/ansible-dir/file1.txt owner=root group=root mode='1777'"
+> ansible all -i server-list -m file -a "path=/tmp/ansible-dir/file1.txt state=absent"
+> ansible all -i server-list -m yum -a "name=httpd state=latest"
+> ansible all -i server-list -m yum -a "name='*' state=latest"
+> ansible all -i server-list -m yum -a "name=kernel state=latest"
+> ansible all -i server-list -m user -a "name=anwar state=present"
+> ansible all -i server-list -m user -a "name=anwar state=absent"
+> ansible all -i server-list -m yum -a "name=kernel state=latest"
+> ansible all -i server-list -m service -a "name=httpd state=started enabled=yes"
+> ansible all -i server-list -m service -a "name=httpd state=stopped"
+> ansible all -i server-list -m service -a "name=httpd state=reloaded"
+> ansible all -i server-list -m service -a "name=httpd state=restarted"
+
+------------- NFS --------------
+
+> ansible all -i server-list -m yum -a "name=nfs-utils state=latest"
+> ansible all -i server-list -m service -a "name=nfs state=started enabled=yes"
+> ansible all -i server-list -m firewalld -a "port=2049/tcp permanent=yes immediate=yes state=enabled" (immediate=reload)
+> ansible all -i server-list -m firewalld -a "port=2049/udp permanent=yes immediate=yes state=enabled"
+> ansible all -i server-list -m firewalld -a "port=111/tcp permanent=yes immediate=yes state=enabled"
+> ansible all -i server-list -m firewalld -a "port=111/udp permanent=yes immediate=yes state=enabled"
+> ansible all -i server-list -m lineinfile -a "path=/etc/exports line='/nfs2-share 192.168.100.104(rw,sync,no_root_squash)'"
+> ansible all -i server-list -m shell -a "cmd= 'exportfs -avr '"
+> ansible all -i server-list -m mount -a "path=/nfs2-share src=192.168.100.102:/nas4 fstype=nfs state=mounted"
+
+
+------ verify changings in managed nodes -----
+  except jumpserver all other vms are managed nodes
+
+> cd /tmp
+> ll
+ (it will show all changes)
+
+
+------ colours show changes ------
+
+GREEN= SUCCESSFUL & UNCHANGED
+YELLOW= SUCCESSFUL & CHANGED
+RED= FAILED/UNREACHABLE
+
+
+====== ansible-vault ======
+it is used to encrypt any file or to assign a password to a file.
+
+> ansible-vault create playbookname.yml
+> ansible-vault edit playbookname.yml
+> ansible-playbook -i serverlist.txt --ask-vault-pass
+> ansible-vault encrypt playbookname.yml
+> ansible-vault decrypt playbookname.yml
+
+
+
+
+======= ansible role =======
+
+Role: set of permissions assigned by authorized person according to the requirement
+
+
+
+
+
+
+
+
+
+
+ 

@@ -1,0 +1,41 @@
+
+
+----------- 1st-Interview -----------
+
+> work around
+> user management
+> ssh
+> vim
+> yum/dnf
+> lvm
+> sheet1
+
+
+------------ 2nd-Interview -----------
+
+> 1st-Inter
+> Logs
+> NFS
+> Networking
+> Git
+> Sheet2
+
+
+------------ 3rd-Interview -----------
+
+> 2nd-Inter
+> Kickstart
+> Ansible
+> RAID
+> Nic-Bonding
+> Patching
+> Sheet3
+
+
+------------ Final-Interview ----------
+
+> 3rd- Inter
+> Troubleshooting
+> Docker
+> AWS
+> Final-sheet
